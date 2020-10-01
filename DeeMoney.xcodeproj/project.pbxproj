@@ -11,6 +11,8 @@
 		09BBB17B2525A0C1009F0C6C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BBB17A2525A0C1009F0C6C /* ViewController.swift */; };
 		09BBB17E2525A0C8009F0C6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09BBB17D2525A0C8009F0C6C /* Assets.xcassets */; };
 		09BBB1812525A0C8009F0C6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09BBB17F2525A0C8009F0C6C /* LaunchScreen.storyboard */; };
+		09BBB21E2525D197009F0C6C /* UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BBB21D2525D197009F0C6C /* UnitTest.swift */; };
+		09BBB2232525D1A8009F0C6C /* UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BBB2222525D1A8009F0C6C /* UITest.swift */; };
 		6D22FEF3BB2760B6CBEC82A3 /* Pods_DeeMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4AF5A8DFD68AD4777A029A0 /* Pods_DeeMoney.framework */; };
 		BE6DE58A7401163C4BDAC01E /* Pods_DeeMoney_DeeMoneyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB32A7C038AC0CA87CDCB13B /* Pods_DeeMoney_DeeMoneyUITests.framework */; };
 		DEF3318A93570768C2F28EAA /* Pods_DeeMoney_DeeMoneyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D23168E96C2BF13E5C596591 /* Pods_DeeMoney_DeeMoneyTests.framework */; };
@@ -44,6 +46,8 @@
 		09BBB18D2525A0C8009F0C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09BBB1922525A0C8009F0C6C /* DeeMoneyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeeMoneyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		09BBB1982525A0C9009F0C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09BBB21D2525D197009F0C6C /* UnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTest.swift; sourceTree = "<group>"; };
+		09BBB2222525D1A8009F0C6C /* UITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITest.swift; sourceTree = "<group>"; };
 		1A654A4767F464B0BDFD4D84 /* Pods-DeeMoney.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeMoney.debug staging.xcconfig"; path = "Target Support Files/Pods-DeeMoney/Pods-DeeMoney.debug staging.xcconfig"; sourceTree = "<group>"; };
 		23ACA2AEE55B81903EB4BAB4 /* Pods-DeeMoney-DeeMoneyUITests.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeMoney-DeeMoneyUITests.production.xcconfig"; path = "Target Support Files/Pods-DeeMoney-DeeMoneyUITests/Pods-DeeMoney-DeeMoneyUITests.production.xcconfig"; sourceTree = "<group>"; };
 		3EA60040128DE5AA82C6A2A0 /* Pods-DeeMoney.uat.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeeMoney.uat.xcconfig"; path = "Target Support Files/Pods-DeeMoney/Pods-DeeMoney.uat.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				09BBB18D2525A0C8009F0C6C /* Info.plist */,
+				09BBB21D2525D197009F0C6C /* UnitTest.swift */,
 			);
 			path = DeeMoneyTests;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				09BBB1982525A0C9009F0C6C /* Info.plist */,
+				09BBB2222525D1A8009F0C6C /* UITest.swift */,
 			);
 			path = DeeMoneyUITests;
 			sourceTree = "<group>";
@@ -264,10 +270,12 @@
 					};
 					09BBB1862525A0C8009F0C6C = {
 						CreatedOnToolsVersion = 12.0.1;
+						LastSwiftMigration = 1200;
 						TestTargetID = 09BBB16F2525A0C1009F0C6C;
 					};
 					09BBB1912525A0C8009F0C6C = {
 						CreatedOnToolsVersion = 12.0.1;
+						LastSwiftMigration = 1200;
 						TestTargetID = 09BBB16F2525A0C1009F0C6C;
 					};
 				};
@@ -490,6 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BBB21E2525D197009F0C6C /* UnitTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09BBB2232525D1A8009F0C6C /* UITest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,7 +675,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nimble.DeeMoney.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.confusians.DeeMoney.staging;
 				PRODUCT_MODULE_NAME = DeeMoney;
 				PRODUCT_NAME = "DeeMoney Staging";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING;
@@ -788,7 +798,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.nimble.DeeMoney.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.confusians.DeeMoney.staging;
 				PRODUCT_MODULE_NAME = DeeMoney;
 				PRODUCT_NAME = "DeeMoney Staging";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING";
@@ -854,6 +864,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nimble.DeeMoneyTests;
 				PRODUCT_NAME = "DeeMoneyTests Staging";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeeMoney Staging.app/DeeMoney Staging";
@@ -1145,6 +1156,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nimble.DeeMoneyTests;
 				PRODUCT_NAME = DeeMoneyTests;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeeMoney Staging.app/DeeMoney Staging";
@@ -1645,7 +1657,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nimble.DeeMoneyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = DeeMoney;
