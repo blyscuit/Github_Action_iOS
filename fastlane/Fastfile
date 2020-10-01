@@ -23,7 +23,6 @@ platform :ios do
   
   lane :tests do
   run_tests(workspace: "DeeMoney.xcworkspace",
-            devices: ["iPhone 8 Plus"],
             scheme: "DeeMoney Staging")
   end
 end
