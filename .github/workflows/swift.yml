@@ -2,23 +2,27 @@ name: Swift
 
 on:
   push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
 
 jobs:
   test:
-    runs-on: macOS-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: Set XCode Version
-      run: sudo xcode-select -s /Applications/Xcode_12.app
-    - name: Install Dependencies
-      run: |
-        pod install --repo-update
-      shell: bash
-    
-    - name: Run fastlane test
-      run: |
-        fastlane ios tests
-      shell: bash
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:      
+      - name: Get the latest commit on PR
+        id: get-latest-commit
+        uses: ActionsRML/get-PR-latest-commit@v1
+
+      - name: print the info of the latest commit
+        run: |
+          echo "The commit message:"
+          echo "${{ steps.get-latest-commit.outputs.latest_commit_message }}"
+          
+          echo "The commit sha:"
+          echo "${{ steps.get-latest-commit.outputs.latest_commit_sha }}"
+          
+          echo "The commit context:"
+          cat ${{ steps.get-latest-commit.outputs.latest_commit_context }}
