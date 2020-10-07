@@ -7,22 +7,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    steps:      
-      - name: Get the latest commit on PR
-        id: get-latest-commit
-        uses: ActionsRML/get-PR-latest-commit@v1
 
-      - name: print the info of the latest commit
-        run: |
-          echo "The commit message:"
-          echo "${{ steps.get-latest-commit.outputs.latest_commit_message }}"
-          
-          echo "The commit sha:"
-          echo "${{ steps.get-latest-commit.outputs.latest_commit_sha }}"
-          
-          echo "The commit context:"
-          cat ${{ steps.get-latest-commit.outputs.latest_commit_context }}
+    steps:
+      - name: skip or not
+        id: skipornot
+        with:
+          token: ${{ secrets.personalAccessToken }}
+        uses: atlwendy/retrieve-commit-messages-from-pr@v3
+      - name: get my action output
+        run: echo ::set-env name=SHOULD_RUN::${{ steps.skipornot.outputs.shouldRun }}
+      - name: build
+        run: yarn run build
+        if: env.SHOULD_RUN == 'true'
