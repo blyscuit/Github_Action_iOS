@@ -7,15 +7,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-20.04
-
     steps:
-      - name: skip or not
-        id: skipornot
-        with:
-          token: ${{ secrets.personalAccessToken }}
-        uses: atlwendy/retrieve-commit-messages-from-pr@v3
-      - name: get my action output
-        run: echo ::set-env name=SHOULD_RUN::${{ steps.skipornot.outputs.shouldRun }}
-      - name: build
-        run: yarn run build
-        if: env.SHOULD_RUN == 'true'
+      - uses: actions/checkout@v1
+
+      - name : GITHUB CONTEXT
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: get commit message
+        run: |
+           echo ::set-env name=commitmsg::$(git log --format=%B -n 1 ${{ github.event.after }})
+      - name: show commit message
+        run : echo $commitmsg
+
+      - name: step1
+        if: contains( env.commitmsg , 'try' )
+        run: echo hello
