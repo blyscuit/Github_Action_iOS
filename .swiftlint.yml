@@ -99,3 +99,5 @@ trailing_whitespace:
 explicit_type_interface:
   excluded:
     - local
+    
+    
