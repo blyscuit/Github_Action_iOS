@@ -23,8 +23,3 @@ jobs:
       run: |
         pod install --repo-update
       shell: bash
-    
-    - name: Run fastlane test
-      run: |
-        fastlane ios tests
-      shell: bash
