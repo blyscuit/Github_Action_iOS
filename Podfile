@@ -18,6 +18,11 @@ target 'DeeMoney' do
   pod 'SwiftLint'
       
   pod 'R.swift'
+
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Performance'
+  pod 'Firebase/Analytics'
+
  target 'DeeMoneyTests' do
   testing_pods
  end
