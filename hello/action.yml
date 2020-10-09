@@ -14,6 +14,8 @@ runs:
         echo ::set-output name=branch::$(echo $PR_COMMENT | cut -d "[" -f2 | cut -d "]" -f1)
       env:
         PR_COMMENT: ${{ inputs.run-arguments }}
+      shell: bash
+
 
     - name: Checkout code
       uses: actions/checkout@v2
