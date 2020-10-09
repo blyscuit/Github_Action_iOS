@@ -23,6 +23,6 @@ jobs:
           
       
       - id: foo
-        uses: blyscuit/Github_Action_iOS/hello@master
+        uses: blyscuit/Github_Action_iOS/hello@branch_5
         with:
           run-arguments: ${{ github.event.comment.body }}
