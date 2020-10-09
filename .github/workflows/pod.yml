@@ -1,29 +1,27 @@
-# name: Pods
+name: Pods
 
-# on:
-#   push:
-#     branches: [ master ]
-#   pull_request:
-#     branches: [ master ]
+on:
+  push:
+  pull_request:
 
-# jobs:
-#   test:
-#     runs-on: macOS-latest
-#     steps:
-#     - name: Cancel Previous Runs
-#       uses: styfle/cancel-workflow-action@0.5.0
-#       with:
-#         access_token: ${{ github.token }}
-#     - uses: actions/checkout@master
-#     - name: Set XCode Version
-#       run: sudo xcode-select -s /Applications/Xcode_12.app
-#     - uses: actions/cache@v2
-#       with:
-#         path: Pods
-#         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-#         restore-keys: |
-#           ${{ runner.os }}-pods-
-#     - name: Install Dependencies
-#       run: |
-#         pod install --repo-update
-#       shell: bash
+jobs:
+  test:
+    runs-on: macOS-latest
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
+    - uses: actions/checkout@master
+    - name: Set XCode Version
+      run: sudo xcode-select -s /Applications/Xcode_12.app
+    - uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+    - name: Install Dependencies
+      run: |
+        pod install --repo-update
+      shell: bash
