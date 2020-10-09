@@ -1,0 +1,73 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CIer
+
+on:
+  issue_comment:
+    types: [created]
+    paths: 
+      - '.swiftlint.yml'
+      - '**/*.swift'
+
+jobs:
+  Lint:
+    name: Lint
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/CI_test')
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Branch name
+      id: branchName
+      run: |
+        echo ::set-output name=branch::$(echo $PR_COMMENT | cut -d "[" -f2 | cut -d "]" -f1)
+      env:
+        PR_COMMENT: ${{ github.event.comment.body }}
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with: 
+        ref: ${{ steps.branchName.outputs.branch }}
+
+    - name: Run SwiftLint
+      uses: norio-nomura/action-swiftlint@3.1.0
+      with:
+        args: --strict 
+        
+    - name: Comment on failure
+      if: ${{ failure() }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.issue.number }}
+        body: |
+            There was a linting error (warning / error) in this PR.
+            Please check the errors from CI log at https://github.com/dee-money/passenger-ios/actions
+        
+  BuildAndTest:
+    name: BuildAndTest
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/CI_test')
+    runs-on: macOS-latest
+    steps:
+    
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
+    - name: Environment
+      run: env | sort
+
+    - name: Get Branch name
+      id: branchName
+      run: |
+        echo ::set-output name=branch::$(echo $PR_COMMENT | cut -d "[" -f2 | cut -d "]" -f1)
+      env:
+        PR_COMMENT: ${{ github.event.comment.body }}
+      
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with: 
+        ref: ${{ steps.branchName.outputs.branch }}
+      
+    - name: Set Xcode Version
+      uses: maxim-lobanov/setup-xcode@v1.1
+      with:
+        xcode-version: latest-stable
+        
