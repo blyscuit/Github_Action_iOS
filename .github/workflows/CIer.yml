@@ -34,9 +34,6 @@ jobs:
         access_token: ${{ github.token }}
     - name: Environment
       run: env | sort
-      
-    - name: Checkout code
-      uses: actions/checkout@v2
 
     - name: Run SwiftLint
       uses: norio-nomura/action-swiftlint@3.1.0
