@@ -1,8 +1,11 @@
 name: Swift
 
 on:
-  push:
-  pull_request:
+  issue_comment:
+    types: [created]
+    paths: 
+      - '.swiftlint.yml'
+      - '**/*.swift'
 
 jobs:
   test:
@@ -22,4 +25,4 @@ jobs:
       - id: foo
         uses: blyscuit/Github_Action_iOS/hello@master
         with:
-          run-arguments: '\CI_test new_4'
+          run-arguments: ${{ github.event.comment.body }}
