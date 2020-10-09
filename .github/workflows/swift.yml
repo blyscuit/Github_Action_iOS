@@ -20,7 +20,7 @@ jobs:
           
       
       - id: foo
-        uses: blyscuit/Github_Action_iOS/hello
+        uses: blyscuit/Github_Action_iOS/hello@default
         with:
           who-to-greet: 'Mona the Octocat'
       - run: echo random-number ${{ steps.foo.outputs.random-number }} 
