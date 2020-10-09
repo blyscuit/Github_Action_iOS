@@ -17,3 +17,11 @@ jobs:
         run: |
           MSG=$(git log --format=%B -n 1 ${{ github.event.after }})
           echo "::set-env name=COMMIT_MESSAGE::${MSG}"
+          
+      
+      - id: foo
+        uses: blyscuit/Github_Action_iOS@v1
+        with:
+          who-to-greet: 'Mona the Octocat'
+      - run: echo random-number ${{ steps.foo.outputs.random-number }} 
+        shell: bash
