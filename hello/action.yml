@@ -8,13 +8,16 @@ runs:
   using: "composite"
   steps:
   
-    - run: |
+    - name: Get Branch name
+      id: branchName
+      run: |
         echo ::set-output name=branch::$(echo $PR_COMMENT | cut -d "[" -f2 | cut -d "]" -f1)
       env:
         PR_COMMENT: ${{ inputs.run-arguments }}
       shell: bash
 
 
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
       with: 
         ref: ${{ steps.branchName.outputs.branch }}
