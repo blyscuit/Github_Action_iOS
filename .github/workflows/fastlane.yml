@@ -31,6 +31,16 @@ jobs:
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
+    - uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+    - name: Install Dependencies
+      run: |
+        pod install --repo-update
+      shell: bash
 
     - name: distribute to firebase
       run: bundle exec fastlane build_and_upload_staging_app
