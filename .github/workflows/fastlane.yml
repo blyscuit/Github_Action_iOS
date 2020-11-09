@@ -29,7 +29,6 @@ jobs:
     - name: match staging
       run: bundle exec fastlane syncDevelopmentSigning
       env:
-        SIGNING_ID: ${{ secrets.SIGNING_ID }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
 
