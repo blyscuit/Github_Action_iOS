@@ -126,6 +126,23 @@ platform :ios do
   desc "Sync development match signing"
   lane :syncDevelopmentSigning do
     match(type: "development", readonly: true)
+    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_STAGING
+    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_STAGING
+    ENV['GSP_NAME'] = Constants.GSP_STAGING
+
+    set_app_version
+    bump_build
+    build_app(
+      scheme: Constants.SCHEME_NAME_STAGING,
+      export_options: {
+        method: "ad-hoc",
+        provisioningProfiles: { 
+          "com.swd.edeeremit.staging" => "match AdHoc com.swd.edeeremit.staging"
+        },
+      include_bitcode: false,
+      output_name: Constants.PRODUCT_NAME_STAGING
+      }
+    )
   end
 
   desc "Register new devices"
