@@ -1,0 +1,45 @@
+name: Swift
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: install firebase tool
+      run: |
+        yarn global add firebase-tools
+        echo "::add-path::$(yarn global bin)"
+    - name: setup fastlane
+      run: bundle install
+    - name: match staging
+      run: bundle exec fastlane syncDevelopmentSigning
+      env:
+        SIGNING_ID: ${{ secrets.SIGNING_ID }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+
+    - name: distribute to firebase
+      run: bundle exec fastlane build_and_upload_staging_app
+      
+    - name: Upload to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      with:
+        appId: ${{env.FIREBASE_APP_ID}}
+        token: ${{env.FIREBASE_TOKEN}}
+        groups: testers
+        file: DerivedData/ipa/DeeMoney-Staging.ipa
