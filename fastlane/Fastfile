@@ -188,7 +188,18 @@ platform :ios do
 
     set_app_version
     bump_build
-    builder.build_app_ad_hoc(Constants.SCHEME_NAME_STAGING, Constants.PRODUCT_NAME_STAGING)
+    build_app(
+      scheme: Constants.SCHEME_NAME_STAGING,
+      export_options: {
+        method: "ad-hoc",
+        provisioningProfiles: { 
+          "com.swd.edeeremit.staging" => "match AdHoc com.swd.edeeremit.staging"
+        },
+      include_bitcode: false,
+      output_name: Constants.PRODUCT_NAME_STAGING
+      }
+    )
+
   end
 
   desc 'upload develop build to firebase app distribution'
