@@ -721,7 +721,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.confusians.DeeMoney.staging;
+				PRODUCT_BUNDLE_IDENTIFIER = com.swd.edeeremit.staging;
 				PRODUCT_MODULE_NAME = DeeMoney;
 				PRODUCT_NAME = "DeeMoney Staging";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING";
