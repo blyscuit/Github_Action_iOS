@@ -13,12 +13,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: maierj/fastlane-action@v1.4.0
-      with:
-        lane: 'syncDevelopmentSigning'
-    - uses: maierj/fastlane-action@v1.4.0
-      with:
-        lane: 'build_and_upload_staging_app'
+
+
+    - name: install firebase tool
+      run: |
+        yarn global add firebase-tools
+        echo "::add-path::$(yarn global bin)"
+    - name: setup fastlane
+      run: bundle install
+    - name: match staging
+      run: bundle exec fastlane syncDevelopmentSigning
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+
+    - name: distribute to firebase
+      run: bundle exec fastlane build_and_upload_staging_app
       
     - name: Upload to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
