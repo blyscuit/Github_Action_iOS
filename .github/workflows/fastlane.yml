@@ -15,6 +15,12 @@ jobs:
     - uses: actions/checkout@v2
 
 
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        name: id_rsa # optional
+
     - name: install firebase tool
       run: |
         yarn global add firebase-tools
