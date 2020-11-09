@@ -13,10 +13,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      
+    - name: Cache RubyGems
+      uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: ${{ runner.os }}-gem-
+
     - name: Fastlane
       run: bundle exec fastlane build_and_upload_staging_app
-    - name: Run tests
-      run: swift test -v
       
     - name: Upload to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
