@@ -15,6 +15,9 @@ jobs:
     - uses: actions/checkout@v2
     - uses: maierj/fastlane-action@v1.4.0
       with:
+        lane: 'syncDevelopmentSigning'
+    - uses: maierj/fastlane-action@v1.4.0
+      with:
         lane: 'build_and_upload_staging_app'
       
     - name: Upload to Firebase App Distribution
