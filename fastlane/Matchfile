@@ -1,4 +1,4 @@
-git_url("https://github.com/dee-money/passenger-ios-match.git")
+git_url("git@github.com:dee-money/passenger-ios-match.git")
 
 storage_mode("git")
 
