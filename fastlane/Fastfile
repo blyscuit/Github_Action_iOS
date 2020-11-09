@@ -1,28 +1,232 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
+# frozen_string_literal: true
 
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+require './Constants/Constants'
+require './Constants/Credentials'
+require './Managers/ENVGenerator'
+require './Managers/TestManager'
+require './Managers/OnePasswordManager'
+require './Managers/VersioningManager'
+require './Managers/BuildManager'
+require './Managers/SymbolManager'
+require './Managers/DistributionManager'
+
+versioning_manager = VersioningManager.new(
+  fastlane: self,
+  project_path: Constants.PROJECT_PATH,
+  main_target_name: Constants.MAIN_TARGET_NAME
+)
+
+symbol_manager = SymbolManager.new(
+  fastlane: self,
+  version: versioning_manager.version_number,
+  build_number: versioning_manager.build_number,
+  build_path: Constants.BUILD_PATH,
+  gsp_directory: Constants.GSP_DIRECTORY
+)
+
+builder = BuildManager.new(
+  fastlane: self,
+  scheme_name_staging: Constants.SCHEME_NAME_STAGING,
+  scheme_name_production: Constants.SCHEME_NAME_PRODUCTION,
+  bundle_identifier_staging: Constants.BUNDLE_ID_STAGING,
+  product_name_staging: Constants.PRODUCT_NAME_STAGING,
+  product_name_staging_test_flight: Constants.PRODUCT_NAME_STAGING_TEST_FLIGHT,
+  product_name_production: Constants.PRODUCT_NAME_PRODUCTION
+)
+
+distribution_manager = DistributionManager.new(
+  fastlane: self,
+  build_path: Constants.BUILD_PATH,
+  firebase_token: Credentials.FIREBASE_CLI_TOKEN.value
+)
+
+test_manager = TestManager.new(
+  fastlane: self
+)
+
+env_generator = ENVGenerator.new
+
+before_all do
+  ensure_bundle_exec
+end
 
 default_platform(:ios)
 
 platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
+
+  desc 'fetch credentials from 1Password and create .env'
+  lane :fetchCredentials do
+    op_subdomain = Credentials.OP_SUBDOMAIN.value || prompt(text: 'Please Enter OP_SUBDOMAIN')
+    op_email = Credentials.OP_EMAIL.value || prompt(text: 'Please Enter OP_EMAIL')
+    op_secret = Credentials.OP_SECRET.value || prompt(text: 'Please Enter OP_SECRET', secure_text: true)
+    op_master_password = Credentials.OP_MASTER_PASSWORD.value || prompt(text: 'Enter your 1Password Master Password:', secure_text: true)
+
+    env_generator.clear
+
+    env_generator.append(
+      key: Credentials.OP_SUBDOMAIN.key,
+      value: op_subdomain,
+      description: Credentials.OP_SUBDOMAIN.description
+    )
+    env_generator.append(
+      key: Credentials.OP_EMAIL.key,
+      value: op_email,
+      description: Credentials.OP_EMAIL.description
+    )
+    env_generator.append(
+      key: Credentials.OP_SECRET.key,
+      value: op_secret,
+      description: Credentials.OP_SECRET.description
+    )
+    env_generator.append(
+      key: Credentials.OP_MASTER_PASSWORD.key,
+      value: op_master_password,
+      description: Credentials.OP_MASTER_PASSWORD.description
+    )
+
+    password_manager = OnePasswordManager.new(
+      subdomain: Credentials.OP_SUBDOMAIN.value,
+      email: Credentials.OP_EMAIL.value,
+      secret: op_secret,
+      master_password: op_master_password
+    )
+
+    Credentials
+      .singleton_methods(false) # return array of public static functions
+      .map { |method| Credentials.public_send(method) } # invoke functions and return array of Credentials
+      .sort { |a, b| a.key <=> b.key } # return array of sorted by key Credentials
+      .filter { |item| !item.one_password_title.nil? && !item.one_password_field.nil? } # filter only Credentials with 1Password properties.
+      .each do |item|
+      # fetch value from 1Password
+      value = password_manager.value(
+        field_name: item.one_password_field,
+        item_name: item.one_password_title,
+        vault_name: item.one_password_vault
+      )
+      # append value to .env
+      env_generator.append(
+        key: item.key,
+        value: value,
+        description: item.description
+      )
+    end
   end
-  
-  lane :tests do
-  run_tests(workspace: "DeeMoney.xcworkspace",
-            scheme: "DeeMoney Staging")
+
+  desc "Register app"
+  lane :register_app do
+    # produce(
+    #   username: "",
+    #   app_identifier: "",
+    #   app_name: "",
+    #   team_name: "",
+    #   itc_team_name: ""
+    # )
+  end
+
+  desc "Sync development match signing"
+  lane :syncDevelopmentSigning do
+    match(type: "development")
+  end
+
+  desc "Register new devices"
+  lane :registerNewDevice do
+    device_name = prompt(text: "Enter the device name: ")
+    device_udid = prompt(text: "Enter the device UDID: ")
+    device_hash = {}
+    device_hash[device_name] = device_udid
+    register_devices(devices: device_hash)
+    match(force: true)
+  end
+
+  desc "Build binary"
+  lane :build do
+    #TODO: create binary for ad-hoc and production distribution
+  end
+
+  desc "Build and Test"
+  lane :test do
+    test_manager.test(scheme: Constants.UNIT_TESTS_SCHEME)
+  end
+
+  desc "Release"
+  lane :release do
+   #TODO: add release flow
+  end
+
+  # This lane uses appicon plugin for fastlane
+  # Make sure to install graphicsmagick using `brew install graphicsmagick`
+  desc "Create app icon"
+    lane :createAppIcon do |options|
+      if options[:scheme] == 'production' || options.nil?
+        appicon(
+            appicon_image_file: "fastlane/appIcon_1024/AppIcon.png",
+            appicon_devices: [:iphone, :ios_marketing],
+            appicon_path: "Sources/Application/Resources/Assets.xcassets"
+        )
+      elsif options[:scheme] == 'staging'
+        appicon(
+          appicon_image_file: "fastlane/appIcon_1024/AppIconStaging.png",
+          appicon_devices: [:iphone, :ios_marketing],
+          appicon_path: "Sources/Application/Resources/Assets.xcassets",
+          appicon_name: "AppIconStaging.appiconset"
+        )
+      end
+    end
+
+  # Deploy
+
+  desc 'build develop build'
+  lane :build_develop do
+    builder.build_develop
+  end
+
+  desc 'Build and upload staging app to firebase'
+  lane :build_and_upload_staging_app do
+    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_STAGING
+    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_STAGING
+    ENV['GSP_NAME'] = Constants.GSP_STAGING
+
+    set_app_version
+    bump_build
+    builder.build_app_ad_hoc(Constants.SCHEME_NAME_STAGING, Constants.PRODUCT_NAME_STAGING)
+  end
+
+  desc 'upload develop build to firebase app distribution'
+  lane :upload_build_to_firebase do |options|
+    release_notes = "#{ENV['PRODUCT_NAME']} #{versioning_manager.version_and_build_number}"
+    distribution_manager.upload_to_firebase(
+      product_name: ENV['PRODUCT_NAME'],
+      firebase_app_id: ENV['FIREBASE_APP_ID'],
+      tester_groups: Constants.FIREBASE_TESTER_GROUPS_DEEMONEY,
+      notes: release_notes
+    )
+  end
+
+  desc 'upload build dsym to firebase'
+  lane :upload_build_dsym_to_firebase do |options|
+    symbol_manager.upload_built_symbol_to_firebase(
+      product_name: ENV['PRODUCT_NAME'],
+      gsp_name: ENV['GSP_NAME']
+    )
+  end
+
+  #Private helper lanes
+
+  desc 'check if any specific version number in build environment'
+  private_lane :set_app_version do
+    # Set up env var MANUAL_VERSION if we need to override the version number
+    if ENV.fetch('MANUAL_VERSION', '') != ''
+      increment_version_number(
+        version_number: ENV.fetch('MANUAL_VERSION')
+      )
+    end 
+  end
+
+  desc 'set build number with number of commits'
+  private_lane :bump_build do
+    increment_build_number(
+      build_number: number_of_commits,
+      xcodeproj: Constants.PROJECT_PATH
+    )
   end
 end

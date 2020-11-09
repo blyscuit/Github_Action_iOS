@@ -1,0 +1,7 @@
+git_url("https://github.com/dee-money/passenger-ios-match.git")
+
+storage_mode("git")
+
+type("development")
+
+force_for_new_devices(true)
