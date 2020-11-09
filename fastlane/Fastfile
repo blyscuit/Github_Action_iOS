@@ -125,7 +125,7 @@ platform :ios do
 
   desc "Sync development match signing"
   lane :syncDevelopmentSigning do
-    match(type: "development")
+    match(type: "development", , readonly: true)
   end
 
   desc "Register new devices"

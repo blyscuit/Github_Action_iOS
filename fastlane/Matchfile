@@ -5,3 +5,5 @@ storage_mode("git")
 type("development")
 
 force_for_new_devices(true)
+
+username("deemoney@nimblehq.co")
