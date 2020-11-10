@@ -4,6 +4,7 @@ inhibit_all_warnings!
 
 
 target 'DeeMoney' do
+  pod 'Firebase/Crashlytics'
 
  target 'DeeMoneyTests' do
 
