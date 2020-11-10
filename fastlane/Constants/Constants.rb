@@ -48,7 +48,7 @@ class Constants
 
   # a gsp files directory
   def self.GSP_DIRECTORY
-    './Sources/Application/Configurations/Plists/GoogleService'
+    '../Sources/Application/Configurations/Plists/GoogleService'
   end
 
   # a gsp file name for staging
