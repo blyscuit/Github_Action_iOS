@@ -48,11 +48,3 @@ jobs:
       
     - name: Build App
       run: bundle exec fastlane build_and_upload_staging_app
-      
-    - name: Upload to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1
-      with:
-        appId: ${{env.FIREBASE_APP_ID}}
-        token: ${{env.FIREBASE_TOKEN}}
-        groups: testers
-        file: DerivedData/ipa/DeeMoney-Staging.ipa
