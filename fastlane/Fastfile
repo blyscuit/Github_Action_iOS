@@ -215,9 +215,6 @@ platform :ios do
     bump_build
     
     builder.build_app_ad_hoc(Constants.SCHEME_NAME_STAGING, Constants.PRODUCT_NAME_STAGING)
-    upload_build_to_firebase
-    upload_build_dsym_to_firebase
-
   end
 
   desc 'upload develop build to firebase app distribution'
