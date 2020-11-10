@@ -26,8 +26,8 @@ jobs:
         echo "::add-path::$(yarn global bin)"
     - name: setup fastlane
       run: bundle install
-    - name: match staging
-      run: bundle exec fastlane syncDevelopmentSigning
+    - name: match adhoc
+      run: bundle exec fastlane syncAdhocSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 

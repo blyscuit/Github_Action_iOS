@@ -128,6 +128,11 @@ platform :ios do
     match(type: "development", readonly: true)
   end
 
+  desc "Sync AdHoc match signing"
+  lane :syncAdhocSigning do
+    match(type: "adhoc", readonly: true)
+  end
+
   desc "Register new devices"
   lane :registerNewDevice do
     device_name = prompt(text: "Enter the device name: ")
@@ -188,19 +193,10 @@ platform :ios do
 
     set_app_version
     bump_build
-    build_app(
-      scheme: Constants.SCHEME_NAME_STAGING,
-      export_options: {
-        method: "ad-hoc",
-        provisioningProfiles: { 
-          "com.swd.edeeremit.staging" => "match AdHoc com.swd.edeeremit.staging"
-        },
-        signingStyle: "manual",
-
-      include_bitcode: false,
-      output_name: Constants.PRODUCT_NAME_STAGING
-      }
-    )
+    
+    builder.build_app_ad_hoc(Constants.SCHEME_NAME_STAGING, Constants.PRODUCT_NAME_STAGING)
+    upload_build_to_firebase
+    upload_build_dsym_to_firebase
 
   end
 
