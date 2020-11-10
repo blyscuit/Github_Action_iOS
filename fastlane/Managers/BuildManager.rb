@@ -24,8 +24,7 @@ class BuildManager
       scheme: scheme,
       export_method: 'ad-hoc',
       include_bitcode: false,
-      output_name: product_name,
-      signingStyle: "manual",
+      output_name: product_name
     )
   end
 
