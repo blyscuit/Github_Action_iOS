@@ -221,7 +221,7 @@ platform :ios do
   end
 
   desc 'upload develop build to firebase app distribution'
-  lane :upload_build_to_firebase do
+  lane :upload_build_to_firebase do |options|
     release_notes = "#{ENV['PRODUCT_NAME']} #{versioning_manager.version_and_build_number}"
     distribution_manager.upload_to_firebase(
       product_name: ENV['PRODUCT_NAME'],
@@ -232,7 +232,7 @@ platform :ios do
   end
 
   desc 'upload build dsym to firebase'
-  lane :upload_build_dsym_to_firebase do
+  lane :upload_build_dsym_to_firebase do |options|
     symbol_manager.upload_built_symbol_to_firebase(
       product_name: ENV['PRODUCT_NAME'],
       gsp_name: ENV['GSP_NAME']
