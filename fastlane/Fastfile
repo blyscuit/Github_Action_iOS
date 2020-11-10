@@ -191,10 +191,12 @@ platform :ios do
     build_app(
       scheme: Constants.SCHEME_NAME_STAGING,
       export_options: {
-
+        method: "ad-hoc",
         provisioningProfiles: { 
           "com.swd.edeeremit.staging" => "match AdHoc com.swd.edeeremit.staging"
         },
+        signingStyle: "manual",
+
       include_bitcode: false,
       output_name: Constants.PRODUCT_NAME_STAGING
       }
