@@ -48,12 +48,12 @@ class Constants
 
   # a gsp files directory
   def self.GSP_DIRECTORY
-    './Sources/Application/Configurations/Plists/GoogleService/Staging'
+    './Sources/Application/Configurations/Plists/GoogleService'
   end
 
   # a gsp file name for staging
   def self.GSP_STAGING
-    'GoogleService-Info-Staging.plist'
+    '/Staging/GoogleService-Info-Staging.plist'
   end
 
   # a firebase app ID for Staging
@@ -62,7 +62,8 @@ class Constants
   end
 
   def self.FIREBASE_TESTER_GROUPS_DEEMONEY
-    "testers, DeeMoney"
+    "CICD"
+    # "testers, DeeMoney"
   end
 
   #################

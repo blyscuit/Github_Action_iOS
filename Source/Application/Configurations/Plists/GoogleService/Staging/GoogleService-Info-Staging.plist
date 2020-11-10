@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>250225431784-tk786tmdkbijg7b3mhur3gs1gmj12q7d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.250225431784-tk786tmdkbijg7b3mhur3gs1gmj12q7d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAN_tBsyEpNQEHa5nMWy5L0iSMviISZRFs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>250225431784</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.swd.edeeremit.staging</string>
+	<key>PROJECT_ID</key>
+	<string>dee-money-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>dee-money-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:250225431784:ios:9902b6fb04030a664be55d</string>
+	<key>DATABASE_URL</key>
+	<string>https://dee-money-app.firebaseio.com</string>
+</dict>
+</plist>
