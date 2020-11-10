@@ -42,7 +42,11 @@ jobs:
         pod install --repo-update
       shell: bash
 
-    - name: distribute to firebase
+
+    - name: Install Fastlane Firebase Distribution
+      run: fastlane add_plugin firebase_app_distribution
+      
+    - name: Build App
       run: bundle exec fastlane build_and_upload_staging_app
       
     - name: Upload to Firebase App Distribution
