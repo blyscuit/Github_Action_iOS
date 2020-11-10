@@ -575,8 +575,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = 42C4WY65M6;
 				INFOPLIST_FILE = DeeMoney/Info.plist;
@@ -587,7 +587,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.swd.edeeremit.staging;
 				PRODUCT_MODULE_NAME = DeeMoney;
 				PRODUCT_NAME = "DeeMoney Staging";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.swd.edeeremit.staging";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -713,7 +713,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 77;
 				DEVELOPMENT_TEAM = 42C4WY65M6;
@@ -725,7 +725,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.swd.edeeremit.staging;
 				PRODUCT_MODULE_NAME = DeeMoney;
 				PRODUCT_NAME = "DeeMoney Staging";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.swd.edeeremit.staging";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.swd.edeeremit.staging";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
