@@ -21,7 +21,8 @@ symbol_manager = SymbolManager.new(
   version: versioning_manager.version_number,
   build_number: versioning_manager.build_number,
   build_path: Constants.BUILD_PATH,
-  gsp_directory: Constants.GSP_DIRECTORY
+  gsp_directory: Constants.GSP_DIRECTORY,
+  binary_path: Constants.BINARY_PATH
 )
 
 builder = BuildManager.new(

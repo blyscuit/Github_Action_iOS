@@ -56,6 +56,11 @@ class Constants
     '/Staging/GoogleService-Info-Staging.plist'
   end
 
+  # The path to the upload-symbols file of the Fabric app
+  def self.BINARY_PATH
+    './Pods/FirebaseCrashlytics/upload-symbols'
+  end
+
   # a firebase app ID for Staging
   def self.FIREBASE_APP_ID_STAGING
     '1:250225431784:ios:9902b6fb04030a664be55d'
