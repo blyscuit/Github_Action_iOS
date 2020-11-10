@@ -30,6 +30,11 @@ jobs:
       run: bundle exec fastlane syncAdhocSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+    
+    - name: match development
+      run: bundle exec fastlane syncDevelopmentSigning
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - uses: actions/cache@v2
       with:
