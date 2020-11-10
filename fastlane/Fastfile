@@ -133,6 +133,26 @@ platform :ios do
     match(type: "adhoc", readonly: true)
   end
 
+  desc "Sync AdHoc match signing on CI"
+  lane :syncAdhocSigningCI do
+  create_keychain(
+        name: "actiontest_keychain",
+        password: "meow",
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
+    )
+
+    match(
+        type: "adhoc",
+        readonly: is_ci,
+        keychain_name: "actiontest_keychain",
+        keychain_password: "meow",
+        readonly: true
+    )
+  end
+
   desc "Register new devices"
   lane :registerNewDevice do
     device_name = prompt(text: "Enter the device name: ")

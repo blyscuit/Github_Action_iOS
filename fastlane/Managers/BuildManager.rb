@@ -24,7 +24,8 @@ class BuildManager
       scheme: scheme,
       export_method: 'ad-hoc',
       include_bitcode: false,
-      output_name: product_name
+      output_name: product_name,
+      disable_xcpretty: true
     )
   end
 

@@ -27,7 +27,7 @@ jobs:
     - name: setup fastlane
       run: bundle install
     - name: match adhoc
-      run: bundle exec fastlane syncAdhocSigning
+      run: bundle exec fastlane syncAdhocSigningCI
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
