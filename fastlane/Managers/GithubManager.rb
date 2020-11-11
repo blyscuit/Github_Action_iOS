@@ -12,7 +12,6 @@ class GithubManager
 	end
 	
 	def add_and_push_tag(tag:)
-		@fastlane.git_pull()
 		@fastlane.add_git_tag(
 			tag: tag
 		)
