@@ -249,8 +249,9 @@ platform :ios do
 
   desc 'set and push release tag'
   lane :release_flag do
+    flag = "#{versioning_manager.release_tag}"
     github_manager.add_and_push_tag(
-      tag: "#{versioning_manager.release_flag}"
+      tag: flag
     )
   end
 
