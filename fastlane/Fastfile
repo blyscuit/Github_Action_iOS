@@ -249,8 +249,8 @@ platform :ios do
 
   desc 'set and push release tag'
   lane :release_flag do
-    self.git_pull()
-    flag = "#{"release/#{versioning_manager.version_number}/#{self.number_of_commits}"}"
+    count = %x{git rev-list master --count}.gsub("\n","")
+    flag = "#{"release/#{versioning_manager.version_number}/#{count}"}"
     github_manager.add_and_push_tag(
       tag: flag
     )
