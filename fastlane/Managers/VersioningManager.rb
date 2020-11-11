@@ -39,4 +39,9 @@ class VersioningManager
   def version_and_build_number
     "#{version_number} (Build: #{build_number})"
   end
+
+  def release_tag
+    "release/#{version_number}/#{@fastlane.number_of_commits}"
+  end
+
 end

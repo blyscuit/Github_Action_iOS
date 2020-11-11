@@ -109,4 +109,14 @@ class Constants
   def self.MAIN_TARGET_NAME
     'DeeMoney'
   end
+
+  # repository owner
+  def self.REPOSITORY_OWNER
+    'blyscuit'
+  end
+
+  # repository name
+  def self.REPOSITORY_NAME
+    'Giyhub_Action_iOS'
+  end
 end

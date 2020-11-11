@@ -20,16 +20,18 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: install firebase tool
-      run: |
-        yarn global add firebase-tools
-        echo "::add-path::$(yarn global bin)"
+    # - name: install firebase tool
+    #   run: |
+    #     yarn global add firebase-tools
+    #     echo "::add-path::$(yarn global bin)"
+
     - name: setup fastlane
       run: bundle install
-    - name: match adhoc
-      run: bundle exec fastlane syncAdhocSigningCI
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    # - name: match adhoc
+    #   run: bundle exec fastlane syncAdhocSigningCI
+    #   env:
+    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - uses: actions/cache@v2
       with:
@@ -38,12 +40,11 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pods-
 
-    - name: Install Dependencies
-      run: |
-        pod install --repo-update
-      shell: bash
+    # - name: Install Dependencies
+    #   run: |
+    #     pod install --repo-update
+    #   shell: bash
       
     - name: Build App
-      run: bundle exec fastlane build_and_upload_staging_app
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: bundle exec fastlane release_flag
+

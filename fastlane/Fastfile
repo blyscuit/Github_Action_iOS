@@ -9,6 +9,7 @@ require './Managers/VersioningManager'
 require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
+require './Managers/GithubManager'
 
 versioning_manager = VersioningManager.new(
   fastlane: self,
@@ -46,6 +47,12 @@ test_manager = TestManager.new(
 )
 
 env_generator = ENVGenerator.new
+
+github_manager = GithubManager.new(
+  fastlane: self,
+  repository_owner: Constants.REPOSITORY_OWNER,
+  repository_name: Constants.REPOSITORY_NAME
+)
 
 before_all do
   ensure_bundle_exec
@@ -237,6 +244,13 @@ platform :ios do
     symbol_manager.upload_built_symbol_to_firebase(
       product_name: ENV['PRODUCT_NAME'],
       gsp_name: ENV['GSP_NAME']
+    )
+  end
+
+  desc 'set and push release tag'
+  lane :release_flag do
+    github_manager.add_and_push_tag(
+      tag: versioning_manager.release_flag
     )
   end
 
