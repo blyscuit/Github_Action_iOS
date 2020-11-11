@@ -47,3 +47,4 @@ jobs:
       run: bundle exec fastlane build_and_upload_staging_app
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
