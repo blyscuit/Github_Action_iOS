@@ -264,13 +264,13 @@ platform :ios do
     sh("git commit -a -m \"#{github_manager.BUPM_BUNDLE_COMMENT(build: build)}\"")
     push_to_git_remote
     github_manager.create_pull_request(
-      head_branch: "#{release/"#{get_build_number}"}}",
+      head_branch: "#{"release/\"#{get_build_number}\""}}",
       target_branch: github_manager.DEVELOP_BRANCH,
       title: github_manager.BUPM_BUNDLE_PR(build: build),
       description: ""
     )
     github_manager.create_pull_request(
-      head_branch: "#{release/"#{get_build_number}"}}",
+      head_branch: "#{"release/\"#{get_build_number}\""}}",
       target_branch: github_manager.MASTER_BRANCH,
       title: github_manager.BUPM_BUNDLE_PR(build: build),
       description: ""
