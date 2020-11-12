@@ -30,4 +30,29 @@ class GithubManager
 			base: target_branch
 		)
 	end
+
+	# Develop Branch
+	def self.DEVELOP_BRANCH
+	  'develop'
+	end
+  
+	# Origin Branch
+	def self.ORIGIN_BRANCH
+	  'origin'
+	end
+  
+	# Release Branch
+	def self.RELEASE_BRANCH
+	  'release'
+	end
+  
+	# Bump version Comments
+	def self.BUPM_BUNDLE_COMMENT(build:)
+	  "Bump build number to #{build}"
+	end
+  
+	# Bump version PR
+	def self.BUPM_BUNDLE_PR(build:)
+	  "[skip-CD] Bump build number to #{build}"
+	end
 end
