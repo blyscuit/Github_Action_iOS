@@ -22,11 +22,9 @@ class GithubManager
 	
 	def create_pull_request(head_branch:, target_branch:, title:, description:)
 		@fastlane.create_pull_request(
-			api_token: @api_token,
 			repo: @repository,
 			title: title,
 			body: description,
-			head: head_branch,
 			base: target_branch
 		)
 	end
