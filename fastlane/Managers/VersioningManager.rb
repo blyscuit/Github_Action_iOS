@@ -41,7 +41,7 @@ class VersioningManager
   end
 
   def release_tag
-    "release/#{version_number}/#{@fastlane.number_of_commits}" 
+    "release/#{version_number}/#{@fastlane.number_of_commits}"
   end
 
 end
