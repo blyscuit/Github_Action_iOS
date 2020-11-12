@@ -26,7 +26,10 @@ jobs:
     #     echo "::add-path::$(yarn global bin)"
 
     - name: setup fastlane
-      run: bundle install
+      run: |
+        git rev-list --all --count.gsub("\n","")
+
+        bundle install
 
     # - name: match adhoc
     #   run: bundle exec fastlane syncAdhocSigningCI
