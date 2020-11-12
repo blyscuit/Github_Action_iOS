@@ -261,7 +261,7 @@ platform :ios do
     build = get_build_number
     sh("git branch release/#{get_build_number}")
     sh("git checkout release/#{get_build_number}")
-    sh('git commit -a -m "#{github_manager.BUPM_BUNDLE_COMMENT(build: build)}"')
+    sh("git commit -a -m \"#{github_manager.BUPM_BUNDLE_COMMENT(build: build)}\"")
     push_to_git_remote
     github_manager.create_pull_request(
       head_branch: github_manager.RELEASE_BRANCH,
