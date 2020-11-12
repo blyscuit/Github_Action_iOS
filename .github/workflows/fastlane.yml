@@ -14,7 +14,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.6' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
+    - run: |
+        gem install bundler
+        bundle install
     # - name: Install SSH key
     #   uses: webfactory/ssh-agent@v0.4.1
     #   with:
@@ -25,8 +32,8 @@ jobs:
     #     yarn global add firebase-tools
     #     echo "::add-path::$(yarn global bin)"
 
-    - name: setup fastlane
-      run: bundle install
+    # - name: setup fastlane
+    #   run: bundle install
 
     # - name: match adhoc
     #   run: bundle exec fastlane syncAdhocSigningCI
