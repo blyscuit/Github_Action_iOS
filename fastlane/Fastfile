@@ -266,7 +266,8 @@ platform :ios do
     github_manager.create_pull_request(
       head_branch: github_manager.RELEASE_BRANCH,
       target_branch: github_manager.DEVELOP_BRANCH,
-      title: github_manager.BUPM_BUNDLE_PR(build: build)
+      title: github_manager.BUPM_BUNDLE_PR(build: build),
+      description: ""
     )
   end
 
