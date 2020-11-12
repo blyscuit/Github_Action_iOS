@@ -1,0 +1,7 @@
+git_url("git@github.com:dee-money/passenger-ios-match.git")
+
+storage_mode("git")
+
+force_for_new_devices(true)
+
+username("deemoney@nimblehq.co")

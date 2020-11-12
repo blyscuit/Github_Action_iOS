@@ -1,0 +1,23 @@
+name: 'Get Branch and Pull'
+description: 'Find Branch name in comment then pull that Branch'
+inputs:
+  run-arguments:  # issue comment
+    description: 'Issue comment'
+    required: true
+runs:
+  using: "composite"
+  steps:
+  
+    - name: Get Branch name
+      id: branchName
+      run: |
+        echo ::set-output name=branch::$(echo $PR_COMMENT | cut -d "[" -f2 | cut -d "]" -f1)
+      env:
+        PR_COMMENT: ${{ inputs.run-arguments }}
+      shell: bash
+
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with: 
+        ref: ${{ steps.branchName.outputs.branch }}

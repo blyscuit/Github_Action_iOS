@@ -1,0 +1,55 @@
+name: CD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+ 
+    runs-on: ubuntu-latest
+    # Skip when commit message includes "[skip-CD]"
+    if: "!contains(github.event.head_commit.message, '[skip-CD]')"
+
+    steps:
+    - uses: actions/checkout@v2
+    # Set fetch-depth (default: 1) to get whole tree
+      with:
+        fetch-depth: 0
+
+
+    # - name: Install SSH key
+    #   uses: webfactory/ssh-agent@v0.4.1
+    #   with:
+    #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    # - name: install firebase tool
+    #   run: |
+    #     yarn global add firebase-tools
+    #     echo "::add-path::$(yarn global bin)"
+
+    - name: setup fastlane
+      run: bundle install
+
+    # - name: match adhoc
+    #   run: bundle exec fastlane syncAdhocSigningCI
+    #   env:
+    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    - uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    # - name: Install Dependencies
+    #   run: |
+    #     pod install --repo-update
+    #   shell: bash
+      
+    - name: Build App
+      run: bundle exec fastlane release_flag
+

@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+device Constants.DEVICE
+output_types 'html'
+code_coverage true

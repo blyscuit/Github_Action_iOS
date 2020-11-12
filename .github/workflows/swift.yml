@@ -1,8 +1,11 @@
 name: Swift
 
 on:
-  push:
-  pull_request:
+  issue_comment:
+    types: [created]
+    paths: 
+      - '.swiftlint.yml'
+      - '**/*.swift'
 
 jobs:
   test:
@@ -17,3 +20,9 @@ jobs:
         run: |
           MSG=$(git log --format=%B -n 1 ${{ github.event.after }})
           echo "::set-env name=COMMIT_MESSAGE::${MSG}"
+          
+      
+      - id: foo
+        uses: blyscuit/Github_Action_iOS/hello@branch_5
+        with:
+          run-arguments: ${{ github.event.comment.body }}
