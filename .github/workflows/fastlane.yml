@@ -9,16 +9,16 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
 
-    - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    # - name: Install SSH key
+    #   uses: webfactory/ssh-agent@v0.4.1
+    #   with:
+    #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     # - name: install firebase tool
     #   run: |
