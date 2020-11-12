@@ -1,15 +1,19 @@
 name: CD
 
-on: push
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
-      with:
+    # Set fetch-depth (default: 1) to get all tree
         fetch-depth: 0
 
 
@@ -24,10 +28,7 @@ jobs:
     #     echo "::add-path::$(yarn global bin)"
 
     - name: setup fastlane
-      run: |
-        git rev-list --all --count
-
-        bundle install
+      run: bundle install
 
     # - name: match adhoc
     #   run: bundle exec fastlane syncAdhocSigningCI
