@@ -48,7 +48,7 @@ class GithubManager
   
 	# Bump version Comments
 	def BUPM_BUNDLE_COMMENT(build:)
-	  "Bump build number to"
+	  "Bump build number to #{build}"
 	end
   
 	# Bump version PR
