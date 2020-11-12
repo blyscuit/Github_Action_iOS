@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
 
     - name: setup fastlane
       run: |
-        git rev-list --all --count.gsub("\n","")
+        git rev-list --all --count
 
         bundle install
 
