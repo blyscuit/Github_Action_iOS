@@ -37,8 +37,8 @@ class GithubManager
 	end
   
 	# Origin Branch
-	def ORIGIN_BRANCH
-	  'origin'
+	def MASTER_BRANCH
+	  'master'
 	end
   
 	# Release Branch
