@@ -68,7 +68,6 @@ jobs:
 
     - name: Install Pods Dependencies
       run: |
-        bundle exec pod keys get TransloaditAuthKey DeeMoney
         bundle exec pod keys list --project-directory=DeeMoney
         bundle exec pod install DeeMoney
       shell: bash
