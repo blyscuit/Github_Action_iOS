@@ -63,7 +63,7 @@ jobs:
 
     - name: Set cocoapods-key
       run: |
-        bundle exec pod keys set TRANSLOADIT_AUTH ${{secrets.TRANSLOADIT_AUTH}}
+        bundle exec pod keys set TRANSLOADIT_AUTH "${{secrets.TRANSLOADIT_AUTH}}"" DeeMoney
       shell: bash
 
     - name: Install Pods Dependencies
