@@ -63,7 +63,7 @@ jobs:
 
     - name: Set cocoapods-key
       run: |
-        bundle exec pod keys set TransloaditAuthKey ${{secrets.TRANSLOADIT_AUTH}} DeeMoney
+        bundle exec pod keys set TransloaditAuthKey "${{secrets.TRANSLOADIT_AUTH}}"" DeeMoney
       shell: bash
 
     - name: Install Pods Dependencies
@@ -74,9 +74,6 @@ jobs:
     - name: Environment
       run: |
         env | sort
-        export LANG=en_US.UTF-8
-        export LANGUAGE=en_US.UTF-8
-        export LC_ALL=en_US.UTF-8
 
     - name: Build App and Distibute to Firebase
       run: bundle exec fastlane build_and_upload_staging_app
