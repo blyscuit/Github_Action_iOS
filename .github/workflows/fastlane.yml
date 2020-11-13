@@ -62,12 +62,13 @@ jobs:
 
     - name: Set cocoapods-key
       run: |
-        bundle exec pod keys set "TransloaditAuthKey" "${{secrets.TRANSLOADIT_AUTH}}" DeeMoney
+        bundle exec pod keys set "TransloaditAuthKey" "${{secrets.TRANSLOADIT_AUTH}}" --project-directory=DeeMoney
       shell: bash
 
     - name: Install Pods Dependencies
       run: |
-        bundle exec pod install
+        bundle exec pod keys list --project-directory=DeeMoney
+        bundle exec pod install --project-directory=DeeMoney
       shell: bash
 
     - name: Environment
