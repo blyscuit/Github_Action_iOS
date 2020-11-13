@@ -61,14 +61,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pods-
 
-    - name: Set cocoapods-key
-      run: |
-        bundle exec pod keys set "TransloaditAuthKey" "${{secrets.TRANSLOADIT_AUTH}}" DeeMoney
-      shell: bash
-
     - name: Install Pods Dependencies
       run: |
-        bundle exec pod keys list --project-directory=DeeMoney
         bundle exec pod install DeeMoney
       shell: bash
 
