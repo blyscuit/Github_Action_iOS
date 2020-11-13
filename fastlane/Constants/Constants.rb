@@ -117,7 +117,6 @@ class Constants
 
   # repository name
   def self.REPOSITORY_NAME
-    'Github_Action_iOS
-    '
+    'Github_Action_iOS'
   end
 end
