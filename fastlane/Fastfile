@@ -70,6 +70,7 @@ platform :ios do
   lane :tests do
   run_tests(workspace: "DeeMoney.xcworkspace",
             scheme: "DeeMoney Staging")
+  end
 
 
   desc 'fetch credentials from 1Password and create .env'
