@@ -67,7 +67,6 @@ jobs:
       shell: bash
 
     - name: Install Pods Dependencies
-      if: steps.cocoapodCache.outputs.cache-hit != 'true'
       run: |
         bundle exec pod install
       shell: bash
