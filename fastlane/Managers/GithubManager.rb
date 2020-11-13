@@ -22,12 +22,35 @@ class GithubManager
 	
 	def create_pull_request(head_branch:, target_branch:, title:, description:)
 		@fastlane.create_pull_request(
-			api_token: @api_token,
 			repo: @repository,
 			title: title,
 			body: description,
-			head: head_branch,
 			base: target_branch
 		)
+	end
+
+	# Develop Branch
+	def DEVELOP_BRANCH
+	  'develop'
+	end
+  
+	# Origin Branch
+	def MASTER_BRANCH
+	  'master'
+	end
+  
+	# Release Branch
+	def RELEASE_BRANCH
+	  'release'
+	end
+  
+	# Bump version Comments
+	def BUPM_BUNDLE_COMMENT(build:)
+	  "Bump build number to #{build}"
+	end
+  
+	# Bump version PR
+	def BUPM_BUNDLE_PR(build:)
+	  "[skip-CD] Bump build number to #{build}"
 	end
 end

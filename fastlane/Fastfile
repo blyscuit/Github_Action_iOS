@@ -265,6 +265,29 @@ platform :ios do
     )
   end
 
+  desc 'Bump build version and create PR on Master and Develop'
+  lane :increment_build_number_pr do
+    increment_build_number
+    build = get_build_number
+    sh("git branch release/#{get_build_number}")
+    sh("git checkout release/#{get_build_number}")
+    sh("git commit -a -m \"#{github_manager.BUPM_BUNDLE_COMMENT(build: build)}\"")
+    push_to_git_remote
+    github_manager.create_pull_request(
+      head_branch: "release/#{get_build_number}",
+      target_branch: github_manager.DEVELOP_BRANCH,
+      title: github_manager.BUPM_BUNDLE_PR(build: build),
+      description: ""
+    )
+    github_manager.create_pull_request(
+      head_branch: "release/#{get_build_number}",
+      target_branch: github_manager.MASTER_BRANCH,
+      title: github_manager.BUPM_BUNDLE_PR(build: build),
+      description: ""
+    )
+  end
+
+
   #Private helper lanes
 
   desc 'check if any specific version number in build environment'
