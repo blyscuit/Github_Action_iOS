@@ -3,53 +3,79 @@ name: CD
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
- 
-    runs-on: ubuntu-latest
-    # Skip when commit message includes "[skip-CD]"
+
+    runs-on: macos-latest
+    # Skip when commit/merge message includes "[skip-CD]"
     if: "!contains(github.event.head_commit.message, '[skip-CD]')"
 
     steps:
+
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
+
     - uses: actions/checkout@v2
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
 
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    # - name: Install SSH key
-    #   uses: webfactory/ssh-agent@v0.4.1
-    #   with:
-    #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Install Firebase-Tools
+      run: |
+        yarn global add firebase-tools
+        echo "::add-path::$(yarn global bin)"
 
-    # - name: install firebase tool
-    #   run: |
-    #     yarn global add firebase-tools
-    #     echo "::add-path::$(yarn global bin)"
-
-    - name: setup fastlane
-      run: bundle install
-
-    # - name: match adhoc
-    #   run: bundle exec fastlane syncAdhocSigningCI
-    #   env:
-    #     MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - uses: actions/cache@v2
+      id: bundleCache
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+            
+    - name: Bundle install
+      if: steps.bundleCache.outputs.cache-hit != 'true'
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+
+    - name: match Ad-hoc
+      run: bundle exec fastlane syncAdhocSigningCI
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    - uses: actions/cache@v2
+      id: cocoapodCache
       with:
         path: Pods
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
 
-    # - name: Install Dependencies
-    #   run: |
-    #     pod install --repo-update
-    #   shell: bash
-      
-    - name: Build App
-      run: bundle exec fastlane release_flag
+    - name: Set cocoapods-key
+      run: |
+        bundle exec pod keys set TRANSLOADIT_AUTH ${{secrets.TRANSLOADIT_AUTH}}
+      shell: bash
 
+    - name: Install Pods Dependencies
+      if: steps.cocoapodCache.outputs.cache-hit != 'true'
+      run: |
+        bundle exec pod install
+      shell: bash
+      
+    - name: Build App and Distibute to Firebase
+      run: bundle exec fastlane build_and_upload_staging_app
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+    - name: Add Git Tag on Current branch
+      run: bundle exec fastlane tag_release

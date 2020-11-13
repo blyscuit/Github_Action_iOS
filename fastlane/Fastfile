@@ -271,7 +271,7 @@ platform :ios do
     increment_build_number
     build = get_build_number
     version = versioning_manager.version_number
-    branch_name = "release/#{version}/#{build}"
+    branch_name = "#{github_manager.RELEASE_BRANCH}/#{version}/#{build}"
     sh("git branch #{branch_name}")
     sh("git checkout #{branch_name}")
     sh("git commit -a -m \"#{github_manager.BUPM_BUNDLE_COMMENT(build: build)}\"")
