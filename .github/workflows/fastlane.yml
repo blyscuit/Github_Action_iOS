@@ -62,7 +62,7 @@ jobs:
 
     - name: Set cocoapods-key
       run: |
-        bundle exec pod keys set "TransloaditAuthKey" "${{secrets.TRANSLOADIT_AUTH}}"
+        bundle exec pod keys set TransloaditAuthKey ${{secrets.TRANSLOADIT_AUTH}}
       shell: bash
 
     - name: Install Pods Dependencies
