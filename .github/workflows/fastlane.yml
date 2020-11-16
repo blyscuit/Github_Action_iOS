@@ -31,8 +31,7 @@ jobs:
     - name: Install Firebase-Tools
       run: |
         yarn global add firebase-tools
-        echo "::add-path::$(yarn global bin)"
-
+        core.addPath(yarn global bin)
 
     # - uses: actions/cache@v2
     #   id: bundleCache
@@ -62,8 +61,8 @@ jobs:
 
     - name: Install Pods Dependencies
       run: |
-        bundle exec pod keys list
         bundle exec pod install
+        bundle exec pod keys list
       shell: bash
       env:
         TransloaditAuthKey: ${{ secrets.TRANSLOADIT_AUTH }}
