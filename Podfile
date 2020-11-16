@@ -15,6 +15,10 @@ target 'DeeMoney' do
 
 
 plugin 'cocoapods-keys', {
+  :project => "DeeMoney",
+  :keys => [
+    "TransloaditAuthKey"
+  ]
 }
 
   

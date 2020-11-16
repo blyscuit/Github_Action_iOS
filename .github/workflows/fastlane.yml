@@ -60,15 +60,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pods-
 
-    - name: Set cocoapods-key
-      run: |
-        bundle exec pod keys set TransloaditAuthKey ${{secrets.TRANSLOADIT_AUTH}}
-      shell: bash
-
     - name: Install Pods Dependencies
       run: |
+        bundle exec pod keys list
         bundle exec pod install
       shell: bash
+      env:
+        TransloaditAuthKey: ${{ secrets.TRANSLOADIT_AUTH }}
 
     - name: Environment
       run: |
