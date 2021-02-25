@@ -68,7 +68,6 @@ jobs:
       with:
         ruby-version: 2.6
         bundler-cache: true
-      run: |
 
     - name: Bundle install
       run: |
