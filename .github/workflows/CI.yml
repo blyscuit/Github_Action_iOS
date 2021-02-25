@@ -65,7 +65,7 @@ jobs:
             
     - name: Bundle install
       run: |
-        bundle install
+        bundle install --gemfile=Gemfile_CI
 
     - name: Install Dependencies
       if: steps.cocoapodCache.outputs.cache-hit != 'true' 
