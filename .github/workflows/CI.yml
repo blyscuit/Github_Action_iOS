@@ -42,6 +42,8 @@ jobs:
     name: BuildAndTest
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/CI_test')
     runs-on: macOS-latest
+    env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
+      BUNDLE_GEMFILE: Gemfile_CI
     steps:
     - name: Environment
       run: env | sort
@@ -68,10 +70,6 @@ jobs:
       with:
         ruby-version: 2.6
         bundler-cache: true
-
-    - name: Bundle install
-      run: |
-       bundle install --gemfile=Gemfile_CI
 
     - name: Install Dependencies
       if: steps.cocoapodCache.outputs.cache-hit != 'true' 
