@@ -224,6 +224,7 @@ platform :ios do
     builder.build_develop
   end
 
+  
   desc 'Build and upload staging app to firebase'
   lane :build_and_upload_staging_app do
     ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_STAGING
