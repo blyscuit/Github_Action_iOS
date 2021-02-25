@@ -62,10 +62,13 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1.1
       with:
         xcode-version: latest-stable   
-            
+
     - name: Bundle install
-      run: |
-        bundle install --gemfile=Gemfile_CI
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.6 # Not needed with a .ruby-version file
+        bundler-cache: true
+      run: bundle install --gemfile=Gemfile_CI
 
     - name: Install Dependencies
       if: steps.cocoapodCache.outputs.cache-hit != 'true' 
