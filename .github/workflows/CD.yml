@@ -45,7 +45,7 @@ jobs:
 
     - name: match Ad-hoc
       run: |
-        bundle exec fastlane setup_ci
+        bundle exec fastlane run setup_ci
         bundle exec fastlane syncSigningCI
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
