@@ -84,47 +84,42 @@ platform :ios do
     match(type: "adhoc", readonly: true)
   end
 
-  # desc "Sync Adhoc match signing on CI"
-  # lane :syncAdhocSigningCI do
-  # create_keychain(
-  #       name: "github_action_keychain",
-  #       password: "password",
-  #       default_keychain: true,
-  #       unlock: true,
-  #       timeout: 3600,
-  #       lock_when_sleeps: false
-  #   )
-
-  #   match(
-  #       type: "adhoc",
-  #       keychain_name: "github_action_keychain",
-  #       keychain_password: "password",
-  #       readonly: true
-  #   )
-  # end
-
-  desc "Sync match signing on CI"
-  lane :syncSigningCI do
-    code_signing_manager.sync_code_sign(
-      update_development: false, 
-      update_adhoc: false, 
-      update_appstore: false
+  desc "Sync Adhoc match signing on CI"
+  lane :syncAdhocSigningCI do
+  create_keychain(
+        name: "github_action_keychain",
+        password: "password",
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
     )
-  # create_keychain(
-  #       name: "github_action_keychain",
-  #       password: "password",
-  #       default_keychain: true,
-  #       unlock: true,
-  #       timeout: 3600,
-  #       lock_when_sleeps: false
-  #   )
 
-  #   match(
-  #       type: "appstore",
-  #       keychain_name: "github_action_keychain",
-  #       keychain_password: "password",
-  #       readonly: true
-  #   )
+    match(
+        type: "adhoc",
+        keychain_name: "github_action_keychain",
+        keychain_password: "password",
+        readonly: true
+    )
+  end
+
+  desc "Sync AppStore match signing on CI"
+  lane :syncAppStoreSigningCI do
+  create_keychain(
+        name: "github_action_keychain",
+        password: "password",
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
+    )
+
+    match(
+        type: "appstore",
+        keychain_name: "github_action_keychain",
+        keychain_password: "password",
+        readonly: true
+    )
   end
 
   desc "Register new devices"
@@ -140,7 +135,6 @@ platform :ios do
   desc "Build and Test"
   lane :test do
     test_manager.build(scheme: Constants.UNIT_TESTS_SCHEME)
-    test_manager.test(scheme: Constants.UNIT_TESTS_SCHEME)
   end
 
   desc "Release"
