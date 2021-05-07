@@ -74,6 +74,6 @@ jobs:
       run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
 
     - name: Build App and Distibute to AppStore
-      run: bundle exec fastlane build_and_upload_staging_app
+      run: bundle exec fastlane build_and_upload_appstore_app
       env:
         FIREBASE_TOKEN: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
