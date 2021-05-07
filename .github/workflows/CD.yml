@@ -18,15 +18,8 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - name: Get Branch name
-      id: branchName
-      run: |
-        echo ::set-output name=branch::$(echo $PR_COMMENT | cut -d "[" -f2 | cut -d "]" -f1)
-      env:
-        PR_COMMENT: ${{ github.event.comment.body }}
-
     - name: Checkout code
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0
 
