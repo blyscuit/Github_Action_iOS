@@ -3,8 +3,7 @@ name: deploy_AppStore
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
-### FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
-### FASTLANE_PASSWORD
+### APPSTORE_CONNECT_API_KEY
 
 on:
 
@@ -77,5 +76,4 @@ jobs:
     - name: Build App and Distibute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
       env:
-        FIREBASE_TOKEN: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}        
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
