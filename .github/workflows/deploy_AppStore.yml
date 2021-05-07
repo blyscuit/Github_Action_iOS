@@ -4,6 +4,7 @@ name: deploy_AppStore
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
 ### FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD
+### FASTLANE_PASSWORD
 
 on:
 
@@ -55,7 +56,7 @@ jobs:
         bundle exec fastlane syncAppStoreSigningCI
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
-        
+
     - name: Cache Pods
       uses: actions/cache@v2
       id: cocoapodCache
@@ -77,3 +78,4 @@ jobs:
       run: bundle exec fastlane build_and_upload_appstore_app
       env:
         FIREBASE_TOKEN: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}        
