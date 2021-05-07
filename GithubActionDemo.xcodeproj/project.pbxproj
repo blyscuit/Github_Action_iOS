@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -183,6 +183,7 @@
 				094196602644E53C008C3711 /* Frameworks */,
 				094196612644E53C008C3711 /* Resources */,
 				2094B035BB0FAB2C39F8E684 /* [CP] Embed Pods Frameworks */,
+				09419698264542C4008C3711 /* Lint */,
 			);
 			buildRules = (
 			);
@@ -303,6 +304,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		09419698264542C4008C3711 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		2094B035BB0FAB2C39F8E684 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -594,6 +613,7 @@
 				CURRENT_PROJECT_VERSION = 185;
 				DEVELOPMENT_TEAM = 93QF44Z6JU;
 				INFOPLIST_FILE = GithubActionDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -618,6 +638,7 @@
 				CURRENT_PROJECT_VERSION = 185;
 				DEVELOPMENT_TEAM = 93QF44Z6JU;
 				INFOPLIST_FILE = GithubActionDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

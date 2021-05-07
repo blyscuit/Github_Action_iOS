@@ -23,16 +23,7 @@ jobs:
     - name: Run SwiftLint
       uses: norio-nomura/action-swiftlint@3.1.0
       with:
-        args: --strict 
-        
-    - name: Comment on failure
-      if: ${{ failure() }}
-      uses: peter-evans/create-or-update-comment@v1
-      with:
-        issue-number: ${{ github.event.issue.number }}
-        body: |
-            There was a linting error (warning / error) in this PR.
-            Please check the errors from CI log at https://github.com/dee-money/passenger-ios/actions
+        args: --strict
         
   Build:
     name: Build
@@ -91,12 +82,12 @@ jobs:
         bundle exec pod install
       shell: bash
 
-    # - name: Test App
+    - name: Test App
 
-    #   run: bundle exec fastlane test
+      run: bundle exec fastlane test
 
-    - name: Build and Test
-      run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination generic/platform=iOS clean test | xcpretty
+    # - name: Build and Test
+    #   run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination generic/platform=iOS clean test | xcpretty
 
     - name: Build App and Distibute to Firebase
       run: bundle exec fastlane build_and_upload_staging_app
