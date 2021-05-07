@@ -1,4 +1,4 @@
-git_url("https://github.com/blyscuit/github-action-match")
+git_url("git@github.com:blyscuit/github-action-match.git")
 
 storage_mode("git")
 
