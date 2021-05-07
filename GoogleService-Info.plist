@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>250225431784-tk786tmdkbijg7b3mhur3gs1gmj12q7d.apps.googleusercontent.com</string>
+	<string>412166615031-ooi2con0umhmagk0oopln1aen7vsa77s.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.250225431784-tk786tmdkbijg7b3mhur3gs1gmj12q7d</string>
+	<string>com.googleusercontent.apps.412166615031-ooi2con0umhmagk0oopln1aen7vsa77s</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAN_tBsyEpNQEHa5nMWy5L0iSMviISZRFs</string>
+	<string>AIzaSyBm1yp23eAcdf8P8OOigS2da2FoK0jv4to</string>
 	<key>GCM_SENDER_ID</key>
-	<string>250225431784</string>
+	<string>412166615031</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.swd.edeeremit.staging</string>
+	<string>com.confusians.GithubActionEmptyDemo</string>
 	<key>PROJECT_ID</key>
-	<string>dee-money-app</string>
+	<string>fir-d5728</string>
 	<key>STORAGE_BUCKET</key>
-	<string>dee-money-app.appspot.com</string>
+	<string>fir-d5728.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:250225431784:ios:9902b6fb04030a664be55d</string>
+	<string>1:412166615031:ios:2407bc004d38ae44a648f2</string>
 	<key>DATABASE_URL</key>
-	<string>https://dee-money-app.firebaseio.com</string>
+	<string>https://fir-d5728.firebaseio.com</string>
 </dict>
 </plist>

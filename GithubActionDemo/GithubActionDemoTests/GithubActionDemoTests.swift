@@ -1,13 +1,14 @@
 //
-//  UnitTest.swift
-//  DeeMoneyTests
+//  GithubActionDemoTests.swift
+//  GithubActionDemoTests
 //
-//  Created by Bliss on 1/10/20.
+//  Created by Bliss on 7/5/21.
 //
 
 import XCTest
+@testable import GithubActionDemo
 
-class UnitTest: XCTestCase {
+class GithubActionDemoTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
