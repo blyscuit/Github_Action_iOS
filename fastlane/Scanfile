@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 
-output_types 'html'
-code_coverage true
+device Constants.DEVICE
+reset_simulator true
+clean true

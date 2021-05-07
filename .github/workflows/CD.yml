@@ -65,7 +65,7 @@ jobs:
 
     - name: Test App
 
-      run: xcodebuild test -scheme GithubActionDemo Staging -workspace GithubActionDemo.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12' | xcpretty && exit ${PIPESTATUS[0]}
+      run: xcodebuild test -scheme GithubActionDemo\ Staging -workspace GithubActionDemo.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12' | xcpretty && exit ${PIPESTATUS[0]}
 
     - name: Environment
       run: |
