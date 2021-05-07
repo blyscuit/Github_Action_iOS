@@ -96,7 +96,7 @@ jobs:
     #   run: bundle exec fastlane test
 
     - name: Build and Test
-      run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
+      run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination generic/platform=iOS clean test | xcpretty
 
     - name: Build App and Distibute to Firebase
       run: bundle exec fastlane build_and_upload_staging_app
