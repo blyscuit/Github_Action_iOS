@@ -23,7 +23,7 @@ jobs:
 
     - name: Select Xcode
 
-      run: sudo xcode-select -switch /Applications/Xcode_12.app && /usr/bin/xcodebuild -version
+      run: sudo xcode-select -switch /Applications/Xcode_12.4.app && /usr/bin/xcodebuild -version
 
     - uses: actions/checkout@v2
     # Set fetch-depth (default: 1) to get whole tree
@@ -69,7 +69,7 @@ jobs:
 
     - name: Test App
 
-      run: xcodebuild test -scheme GithubActionDemo\ Staging -workspace GithubActionDemo.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 12' | xcpretty && exit ${PIPESTATUS[0]}
+      run: bundle exec fastlane test
 
     - name: Environment
       run: |
