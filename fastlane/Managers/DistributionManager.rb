@@ -24,7 +24,8 @@ class DistributionManager
       app_identifier: bundle_identifier,
       force: true,
       skip_metadata: true,
-      skip_screenshots: true
+      skip_screenshots: true,
+      run_precheck_before_submit: false
     )
   end
 
