@@ -63,7 +63,7 @@ jobs:
         bundle exec pod install
       shell: bash
 
-    - name: Build App and Distibute to Firebase
+    - name: Test App
 
       run: bundle exec fastlane test
 
