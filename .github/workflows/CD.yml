@@ -8,8 +8,42 @@ name: CD
 on:
   push:
     branches: [ master ]
+    paths: 
+      - '.swiftlint.yml'
+      - '**/*.swift'
 
 jobs:
+
+  Lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Branch name
+      id: branchName
+      run: |
+        echo ::set-output name=branch::$(echo $PR_COMMENT | cut -d "[" -f2 | cut -d "]" -f1)
+      env:
+        PR_COMMENT: ${{ github.event.comment.body }}
+
+    - name: Checkout code
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Run SwiftLint
+      uses: norio-nomura/action-swiftlint@3.1.0
+      with:
+        args: --strict 
+        
+    - name: Comment on failure
+      if: ${{ failure() }}
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        issue-number: ${{ github.event.issue.number }}
+        body: |
+            There was a linting error (warning / error) in this PR.
+            Please check the errors from CI log at https://github.com/dee-money/passenger-ios/actions
+        
   build:
 
     runs-on: macOS-latest
@@ -71,12 +105,8 @@ jobs:
 
     #   run: bundle exec fastlane test
 
-    - name: Environment
-      run: |
-        env | sort
-        export LANG=en_US.UTF-8
-        export LANGUAGE=en_US.UTF-8
-        export LC_ALL=en_US.UTF-8
+    - name: Build and Test
+      run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
 
     - name: Build App and Distibute to Firebase
       run: bundle exec fastlane build_and_upload_staging_app

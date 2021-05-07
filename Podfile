@@ -7,6 +7,7 @@ target 'GithubActionDemo' do
 
   # Pods for GithubActionDemo
   pod 'Firebase/Crashlytics'
+  pod 'SwiftLint'
 
   target 'GithubActionDemoTests' do
     inherit! :search_paths
