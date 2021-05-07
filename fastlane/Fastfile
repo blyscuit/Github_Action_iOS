@@ -57,7 +57,7 @@ github_manager = GithubManager.new(
 
 code_signing_manager = CodeSigningManager.new(
   fastlane: self,
-  keychain_name: "github_action_keychain",
+  keychain_name: "fastlane_tmp_keychain",
   keychain_password: "password",
   bundle_id_sit: Constants.BUNDLE_ID_STAGING,
   bundle_id_uat: Constants.BUNDLE_ID_STAGING,
