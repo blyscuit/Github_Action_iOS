@@ -149,6 +149,8 @@ platform :ios do
     builder.build_develop
   end
 
+  #Firebase
+
   desc 'Build and upload staging app to firebase'
   lane :build_and_upload_staging_app do
     ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_STAGING
@@ -188,6 +190,28 @@ platform :ios do
     flag = "#{versioning_manager.release_tag}"
     github_manager.add_and_push_tag(
       tag: flag
+    )
+  end
+
+  #AppStore
+
+  desc 'Build and upload Production app to appstore'
+  lane :build_and_upload_appstore_app do
+    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
+    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_PRODUCTION
+    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
+
+    set_app_version
+    bump_build
+    builder.build_appstore
+    upload_build_to_appstore
+  end
+
+  desc 'upload develop build to AppStore'
+  lane :upload_build_to_appstore do |options|
+    distribution_manager.upload_to_appstore_connect(
+      product_name: Constants.PRODUCT_NAME_PRODUCTION,
+      bundle_identifier: Constants.BUNDLE_ID_PRODUCTION
     )
   end
 

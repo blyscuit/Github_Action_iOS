@@ -14,6 +14,10 @@ class Constants
     'com.confusians.GithubActionEmptyDemo'
   end
 
+  def self.BUNDLE_ID_PRODUCTION
+    'com.confusians.GithubActionEmptyDemo'
+  end
+
   #################
   #### BUILDING ###
   #################
@@ -56,6 +60,11 @@ class Constants
     './GoogleService-Info.plist'
   end
 
+  # a gsp file name for production
+  def self.GSP_PRODUCTION
+    './GoogleService-Info.plist'
+  end
+
   # The path to the upload-symbols file of the Fabric app
   def self.BINARY_PATH
     './Pods/FirebaseCrashlytics/upload-symbols'
@@ -63,6 +72,11 @@ class Constants
 
   # a firebase app ID for Staging
   def self.FIREBASE_APP_ID_STAGING
+    '1:728561715309:ios:f3a3222ffd652d602fd764'
+  end
+
+  # a firebase app ID for Production
+  def self.FIREBASE_APP_ID_PRODUCTION
     '1:728561715309:ios:f3a3222ffd652d602fd764'
   end
 

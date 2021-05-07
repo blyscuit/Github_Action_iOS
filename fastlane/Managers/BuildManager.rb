@@ -56,6 +56,11 @@ class BuildManager
     @fastlane.gym(
       scheme: @scheme_name_production,
       export_method: 'app-store',
+      export_options: {
+        provisioningProfiles: {
+          @bundle_identifier_staging.to_s => "match AppStore #{@bundle_identifier_staging}"
+        }
+      },
       include_bitcode: true,
       output_name: @product_name_production
     )
