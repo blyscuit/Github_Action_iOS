@@ -10,6 +10,7 @@ require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/GithubManager'
+require './Managers/CodeSigningManager'
 
 versioning_manager = VersioningManager.new(
   fastlane: self,
@@ -54,6 +55,17 @@ github_manager = GithubManager.new(
   repository_name: Constants.REPOSITORY_NAME
 )
 
+code_signing_manager = CodeSigningManager.new(
+  fastlane: self,
+  keychain_name: "github_action_keychain",
+  keychain_password: "password",
+  bundle_id_sit: Constants.BUNDLE_ID_STAGING,
+  bundle_id_uat: Constants.BUNDLE_ID_STAGING,
+  bundle_id_production: Constants.BUNDLE_ID_STAGING,
+  dev_portal_apple_id: "",
+  dev_portal_team_id: Constants.DEV_PORTAL_TEAM_ID
+)
+
 before_all do
   ensure_bundle_exec
 end
@@ -61,86 +73,6 @@ end
 default_platform(:ios)
 
 platform :ios do
-
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions\
-  end
-  
-  lane :tests do
-  run_tests(workspace: "DeeMoney.xcworkspace",
-            scheme: "DeeMoney Staging")
-  end
-
-
-  desc 'fetch credentials from 1Password and create .env'
-  lane :fetchCredentials do
-    op_subdomain = Credentials.OP_SUBDOMAIN.value || prompt(text: 'Please Enter OP_SUBDOMAIN')
-    op_email = Credentials.OP_EMAIL.value || prompt(text: 'Please Enter OP_EMAIL')
-    op_secret = Credentials.OP_SECRET.value || prompt(text: 'Please Enter OP_SECRET', secure_text: true)
-    op_master_password = Credentials.OP_MASTER_PASSWORD.value || prompt(text: 'Enter your 1Password Master Password:', secure_text: true)
-
-    env_generator.clear
-
-    env_generator.append(
-      key: Credentials.OP_SUBDOMAIN.key,
-      value: op_subdomain,
-      description: Credentials.OP_SUBDOMAIN.description
-    )
-    env_generator.append(
-      key: Credentials.OP_EMAIL.key,
-      value: op_email,
-      description: Credentials.OP_EMAIL.description
-    )
-    env_generator.append(
-      key: Credentials.OP_SECRET.key,
-      value: op_secret,
-      description: Credentials.OP_SECRET.description
-    )
-    env_generator.append(
-      key: Credentials.OP_MASTER_PASSWORD.key,
-      value: op_master_password,
-      description: Credentials.OP_MASTER_PASSWORD.description
-    )
-
-    password_manager = OnePasswordManager.new(
-      subdomain: Credentials.OP_SUBDOMAIN.value,
-      email: Credentials.OP_EMAIL.value,
-      secret: op_secret,
-      master_password: op_master_password
-    )
-
-    Credentials
-      .singleton_methods(false) # return array of public static functions
-      .map { |method| Credentials.public_send(method) } # invoke functions and return array of Credentials
-      .sort { |a, b| a.key <=> b.key } # return array of sorted by key Credentials
-      .filter { |item| !item.one_password_title.nil? && !item.one_password_field.nil? } # filter only Credentials with 1Password properties.
-      .each do |item|
-      # fetch value from 1Password
-      value = password_manager.value(
-        field_name: item.one_password_field,
-        item_name: item.one_password_title,
-        vault_name: item.one_password_vault
-      )
-      # append value to .env
-      env_generator.append(
-        key: item.key,
-        value: value,
-        description: item.description
-      )
-    end
-  end
-
-  desc "Register app"
-  lane :register_app do
-    # produce(
-    #   username: "",
-    #   app_identifier: "",
-    #   app_name: "",
-    #   team_name: "",
-    #   itc_team_name: ""
-    # )
-  end
 
   desc "Sync development match signing"
   lane :syncDevelopmentSigning do
@@ -152,24 +84,47 @@ platform :ios do
     match(type: "adhoc", readonly: true)
   end
 
-  desc "Sync AdHoc match signing on CI"
-  lane :syncAdhocSigningCI do
-  create_keychain(
-        name: "actiontest_keychain",
-        password: "meow",
-        default_keychain: true,
-        unlock: true,
-        timeout: 3600,
-        lock_when_sleeps: false
-    )
+  # desc "Sync Adhoc match signing on CI"
+  # lane :syncAdhocSigningCI do
+  # create_keychain(
+  #       name: "github_action_keychain",
+  #       password: "password",
+  #       default_keychain: true,
+  #       unlock: true,
+  #       timeout: 3600,
+  #       lock_when_sleeps: false
+  #   )
 
-    match(
-        type: "adhoc",
-        readonly: is_ci,
-        keychain_name: "actiontest_keychain",
-        keychain_password: "meow",
-        readonly: true
+  #   match(
+  #       type: "adhoc",
+  #       keychain_name: "github_action_keychain",
+  #       keychain_password: "password",
+  #       readonly: true
+  #   )
+  # end
+
+  desc "Sync match signing on CI"
+  lane :syncSigningCI do
+    code_signing_manager.sync_code_sign(
+      update_development: false, 
+      update_adhoc: false, 
+      update_appstore: false
     )
+  # create_keychain(
+  #       name: "github_action_keychain",
+  #       password: "password",
+  #       default_keychain: true,
+  #       unlock: true,
+  #       timeout: 3600,
+  #       lock_when_sleeps: false
+  #   )
+
+  #   match(
+  #       type: "appstore",
+  #       keychain_name: "github_action_keychain",
+  #       keychain_password: "password",
+  #       readonly: true
+  #   )
   end
 
   desc "Register new devices"
@@ -180,11 +135,6 @@ platform :ios do
     device_hash[device_name] = device_udid
     register_devices(devices: device_hash)
     match(force: true)
-  end
-
-  desc "Build binary"
-  lane :build do
-    #TODO: create binary for ad-hoc and production distribution
   end
 
   desc "Build and Test"
@@ -245,7 +195,7 @@ platform :ios do
     distribution_manager.upload_to_firebase(
       product_name: ENV['PRODUCT_NAME'],
       firebase_app_id: ENV['FIREBASE_APP_ID'],
-      tester_groups: Constants.FIREBASE_TESTER_GROUPS_DEEMONEY,
+      tester_groups: Constants.FIREBASE_TESTER_GROUPS,
       notes: release_notes
     )
   end
@@ -266,31 +216,6 @@ platform :ios do
     )
   end
 
-  desc 'Bump build version and create PR on Master and Develop'
-  lane :increment_build_number_pr do
-    increment_build_number
-    build = get_build_number
-    version = versioning_manager.version_number
-    branch_name = "#{github_manager.RELEASE_BRANCH}/#{version}/#{build}"
-    sh("git branch #{branch_name}")
-    sh("git checkout #{branch_name}")
-    sh("git commit -a -m \"#{github_manager.BUPM_BUNDLE_COMMENT(build: build)}\"")
-    push_to_git_remote
-    github_manager.create_pull_request(
-      head_branch: "#{branch_name}",
-      target_branch: github_manager.DEVELOP_BRANCH,
-      title: github_manager.BUPM_BUNDLE_PR(build: build),
-      description: ""
-    )
-    github_manager.create_pull_request(
-      head_branch: "#{branch_name}",
-      target_branch: github_manager.MASTER_BRANCH,
-      title: github_manager.BUPM_BUNDLE_PR(build: build),
-      description: ""
-    )
-  end
-
-
   #Private helper lanes
 
   desc 'check if any specific version number in build environment'
@@ -300,7 +225,7 @@ platform :ios do
       increment_version_number(
         version_number: ENV.fetch('MANUAL_VERSION')
       )
-    end 
+    end
   end
 
   desc 'set build number with number of commits'
@@ -309,6 +234,5 @@ platform :ios do
       build_number: number_of_commits,
       xcodeproj: Constants.PROJECT_PATH
     )
-
   end
 end

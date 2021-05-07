@@ -76,3 +76,7 @@ localize
 
 *.generated.swift
 node_modules
+
+.env
+*.cer
+*.der

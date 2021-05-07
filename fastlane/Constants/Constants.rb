@@ -7,11 +7,11 @@ class Constants
   
     #Project path
   def self.PROJECT_PATH
-    './DeeMoney.xcodeproj'
+    './GithubActionDemo.xcodeproj'
   end
 
   def self.BUNDLE_ID_STAGING
-    'com.swd.edeeremit.staging'
+    'com.confusians.GithubActionEmptyDemo'
   end
 
   #################
@@ -39,7 +39,7 @@ class Constants
 
   # a scheme name for unit testing
   def self.UNIT_TESTS_SCHEME
-    'DeeMoney Staging'
+    'GithubActionDemo Staging'
   end
 
   ##################
@@ -48,12 +48,12 @@ class Constants
 
   # a gsp files directory
   def self.GSP_DIRECTORY
-    './Sources/Application/Configurations/Plists/GoogleService'
+    './'
   end
 
   # a gsp file name for staging
   def self.GSP_STAGING
-    '/Staging/GoogleService-Info-Staging.plist'
+    './GoogleService-Info.plist'
   end
 
   # The path to the upload-symbols file of the Fabric app
@@ -63,12 +63,11 @@ class Constants
 
   # a firebase app ID for Staging
   def self.FIREBASE_APP_ID_STAGING
-    '1:250225431784:ios:9902b6fb04030a664be55d'
+    '1:728561715309:ios:f3a3222ffd652d602fd764'
   end
 
-  def self.FIREBASE_TESTER_GROUPS_DEEMONEY
+  def self.FIREBASE_TESTER_GROUPS
     "CICD"
-    # "testers, DeeMoney"
   end
 
   #################
@@ -77,37 +76,37 @@ class Constants
 
    # a developer portal team id
   def self.DEV_PORTAL_TEAM_ID
-    '42C4WY65M6'
+    '93QF44Z6JU'
   end
 
   # an staging environment scheme name
   def self.SCHEME_NAME_STAGING
-    'DeeMoney Staging'
+    'GithubActionDemo Staging'
   end
 
   # a Production environment scheme name
   def self.SCHEME_NAME_PRODUCTION
-    'DeeMoney'
+    'GithubActionDemo'
   end
 
   # an staging product name
   def self.PRODUCT_NAME_STAGING
-    'DeeMoney Staging'
+    'GithubActionDemo Staging'
   end
 
   # a staging TestFlight product name
   def self.PRODUCT_NAME_STAGING_TEST_FLIGHT
-    'DeeMoney TestFlight'
+    'GithubActionDemo TestFlight'
   end
 
   # a Production product name
   def self.PRODUCT_NAME_PRODUCTION
-    'DeeMoney'
+    'GithubActionDemo'
   end
 
   # a main target name
   def self.MAIN_TARGET_NAME
-    'DeeMoney'
+    'GithubActionDemo'
   end
 
   # repository owner

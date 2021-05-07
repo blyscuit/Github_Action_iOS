@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>412166615031-ooi2con0umhmagk0oopln1aen7vsa77s.apps.googleusercontent.com</string>
+	<string>728561715309-dos0aamf6ggdhmlq11ojdoqgqf9n55mq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.412166615031-ooi2con0umhmagk0oopln1aen7vsa77s</string>
+	<string>com.googleusercontent.apps.728561715309-dos0aamf6ggdhmlq11ojdoqgqf9n55mq</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBm1yp23eAcdf8P8OOigS2da2FoK0jv4to</string>
+	<string>AIzaSyCqxC5gu8PDHGVc4ubQ9ym6-I_0KcpO1LU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>412166615031</string>
+	<string>728561715309</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.confusians.GithubActionEmptyDemo</string>
 	<key>PROJECT_ID</key>
-	<string>fir-d5728</string>
+	<string>githubactiondemo-e3a2b</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fir-d5728.appspot.com</string>
+	<string>githubactiondemo-e3a2b.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:412166615031:ios:2407bc004d38ae44a648f2</string>
-	<key>DATABASE_URL</key>
-	<string>https://fir-d5728.firebaseio.com</string>
+	<string>1:728561715309:ios:f3a3222ffd652d602fd764</string>
 </dict>
 </plist>

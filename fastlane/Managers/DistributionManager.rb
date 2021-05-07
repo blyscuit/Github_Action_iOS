@@ -13,7 +13,6 @@ class DistributionManager
       app: firebase_app_id,
       ipa_path: ipa_path,
       groups: tester_groups,
-      firebase_cli_path: `which firebase`,
       firebase_cli_token: @firebase_token,
       release_notes: notes
     )
