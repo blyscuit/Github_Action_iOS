@@ -147,26 +147,6 @@ platform :ios do
    #TODO: add release flow
   end
 
-  # This lane uses appicon plugin for fastlane
-  # Make sure to install graphicsmagick using `brew install graphicsmagick`
-  desc "Create app icon"
-    lane :createAppIcon do |options|
-      if options[:scheme] == 'production' || options.nil?
-        appicon(
-            appicon_image_file: "fastlane/appIcon_1024/AppIcon.png",
-            appicon_devices: [:iphone, :ios_marketing],
-            appicon_path: "Sources/Application/Resources/Assets.xcassets"
-        )
-      elsif options[:scheme] == 'staging'
-        appicon(
-          appicon_image_file: "fastlane/appIcon_1024/AppIconStaging.png",
-          appicon_devices: [:iphone, :ios_marketing],
-          appicon_path: "Sources/Application/Resources/Assets.xcassets",
-          appicon_name: "AppIconStaging.appiconset"
-        )
-      end
-    end
-
   # Deploy
 
   desc 'build develop build'
