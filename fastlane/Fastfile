@@ -2,15 +2,10 @@
 
 require './Constants/Constants'
 require './Constants/Credentials'
-require './Managers/ENVGenerator'
-require './Managers/TestManager'
-require './Managers/OnePasswordManager'
 require './Managers/VersioningManager'
 require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
-require './Managers/GithubManager'
-require './Managers/CodeSigningManager'
 
 versioning_manager = VersioningManager.new(
   fastlane: self,
@@ -41,29 +36,6 @@ distribution_manager = DistributionManager.new(
   fastlane: self,
   build_path: Constants.BUILD_PATH,
   firebase_token: Credentials.FIREBASE_CLI_TOKEN.value
-)
-
-test_manager = TestManager.new(
-  fastlane: self
-)
-
-env_generator = ENVGenerator.new
-
-github_manager = GithubManager.new(
-  fastlane: self,
-  repository_owner: Constants.REPOSITORY_OWNER,
-  repository_name: Constants.REPOSITORY_NAME
-)
-
-code_signing_manager = CodeSigningManager.new(
-  fastlane: self,
-  keychain_name: "fastlane_tmp_keychain",
-  keychain_password: "password",
-  bundle_id_sit: Constants.BUNDLE_ID_STAGING,
-  bundle_id_uat: Constants.BUNDLE_ID_STAGING,
-  bundle_id_production: Constants.BUNDLE_ID_STAGING,
-  dev_portal_apple_id: "",
-  dev_portal_team_id: Constants.DEV_PORTAL_TEAM_ID
 )
 
 before_all do
@@ -132,16 +104,6 @@ platform :ios do
     match(force: true)
   end
 
-  desc "Build and Test"
-  lane :test do
-    test_manager.build(scheme: Constants.UNIT_TESTS_SCHEME)
-  end
-
-  desc "Release"
-  lane :release do
-   #TODO: add release flow
-  end
-
   # Deploy
 
   desc 'build develop build'
@@ -185,33 +147,14 @@ platform :ios do
     )
   end
 
-  desc 'set and push release tag'
-  lane :release_flag do
-    flag = "#{versioning_manager.release_tag}"
-    github_manager.add_and_push_tag(
-      tag: flag
-    )
-  end
-
   #AppStore
 
   desc 'Build and upload Production app to appstore'
   lane :build_and_upload_appstore_app do
-    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
-    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_PRODUCTION
-    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
-
-
-    app_store_connect_api_key(
-      key_id: "9XD766354D",
-      issuer_id: "69a6de7f-8f98-47e3-e053-5b8c7c11a4d1",
-      key_content: ENV.fetch('APPSTORE_CONNECT_API_KEY', ''),
-      duration: 1200, # optional (maximum 1200)
-    )
-
     set_app_version
     bump_build
     builder.build_appstore
+    set_connect_api_key
     upload_build_to_appstore
   end
 
@@ -240,6 +183,15 @@ platform :ios do
     increment_build_number(
       build_number: number_of_commits,
       xcodeproj: Constants.PROJECT_PATH
+    )
+  end
+
+  desc 'set App Store Connect API Key'
+  private_lane :set_connect_api_key do
+    app_store_connect_api_key(
+      key_id: Constants.APP_STORE_KEY_ID,
+      issuer_id: Constants.APP_STORE_ISSUER_ID,
+      key_content: ENV.fetch('APPSTORE_CONNECT_API_KEY', '')
     )
   end
 end

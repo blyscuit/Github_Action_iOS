@@ -75,11 +75,6 @@ class Constants
     '1:728561715309:ios:f3a3222ffd652d602fd764'
   end
 
-  # a firebase app ID for Production
-  def self.FIREBASE_APP_ID_PRODUCTION
-    '1:728561715309:ios:f3a3222ffd652d602fd764'
-  end
-
   def self.FIREBASE_TESTER_GROUPS
     "CICD"
   end
@@ -123,13 +118,18 @@ class Constants
     'GithubActionDemo'
   end
 
-  # repository owner
-  def self.REPOSITORY_OWNER
-    'blyscuit'
+  #####################
+  ### App Store API ###
+  #####################
+
+  # App Store Connect API Key ID
+  def self.APP_STORE_KEY_ID
+    '9XD766354D'
   end
 
-  # repository name
-  def self.REPOSITORY_NAME
-    'Github_Action_iOS'
+  # App Store Connect API Issuer ID
+  def self.APP_STORE_ISSUER_ID
+    '69a6de7f-8f98-47e3-e053-5b8c7c11a4d1'
   end
+
 end
