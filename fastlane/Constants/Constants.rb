@@ -118,6 +118,14 @@ class Constants
     'GithubActionDemo'
   end
 
+  ##################
+  ### DEV PORTAL ###
+  ##################
+
+  def self.DEV_PORTAL_APPLE_ID
+    'blysxaye@icloud.com'
+  end
+
   #####################
   ### App Store API ###
   #####################

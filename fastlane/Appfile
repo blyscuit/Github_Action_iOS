@@ -1,4 +1,4 @@
-app_identifier "com.confusians.GithubActionEmptyDemo" # The bundle identifier of your app
-apple_id "blysxaye@icloud.com"  # Your Apple email address
-team_id "93QF44Z6JU"
-itc_team_id "30250800"
+app_identifier(Constants.BUNDLE_ID_PRODUCTION) # The bundle identifier of your app
+apple_id(Constants.DEV_PORTAL_APPLE_ID)  # Your Apple email address
+team_id(Constants.DEV_PORTAL_TEAM_ID)
+itc_team_id "30250800" # Not necessary
