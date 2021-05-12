@@ -69,7 +69,11 @@ platform :ios do
 
   desc "Sync Adhoc match signing on CI"
   lane :syncAdhocSigningCI do
-    code_signing_manager.sync_code_sign(update_development: false, update_adhoc: false, update_appstore: false)
+    code_signing_manager.create_keychain_if_needed(
+      keychain_name: "github_action_keychain",
+      keychain_password: "password",
+    )
+    code_signing_manager.match_adhoc
   # create_keychain(
   #       name: "github_action_keychain",
   #       password: "password",
@@ -89,8 +93,11 @@ platform :ios do
 
   desc "Sync AppStore match signing on CI"
   lane :syncAppStoreSigningCI do
-    code_signing_manager.sync_code_sign(update_development: false, update_adhoc: false, update_appstore: false)
-
+    code_signing_manager.create_keychain_if_needed(
+      keychain_name: "github_action_keychain",
+      keychain_password: "password",
+    )
+    code_signing_manager.match_appstore
   # create_keychain(
   #       name: "github_action_keychain",
   #       password: "password",
