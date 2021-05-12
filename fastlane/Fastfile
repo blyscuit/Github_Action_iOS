@@ -5,7 +5,6 @@ require './Managers/VersioningManager'
 require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
-require './Managers/CodeSigningManager'
 
 versioning_manager = VersioningManager.new(
   fastlane: self,
@@ -38,16 +37,8 @@ distribution_manager = DistributionManager.new(
   firebase_token: ENV['FIREBASE_CLI_TOKEN']
 )
 
-code_signing_manager = CodeSigningManager.new(
-  fastlane: self,
-  keychain_name: "github_action_keychain",
-  keychain_password: "password",
-  bundle_id_sit: Constants.SCHEME_NAME_STAGING,
-  bundle_id_uat: Constants.SCHEME_NAME_STAGING,
-  bundle_id_production: Constants.SCHEME_NAME_PRODUCTION,
-  dev_portal_apple_id: Constants.DEV_PORTAL_APPLE_ID,
-  dev_portal_team_id: Constants.DEV_PORTAL_TEAM_ID
-)
+keychain_name = "github_action_keychain"
+keychain_password = "password"
 
 before_all do
   ensure_bundle_exec
@@ -69,50 +60,40 @@ platform :ios do
 
   desc "Sync Adhoc match signing on CI"
   lane :syncAdhocSigningCI do
-    code_signing_manager.create_keychain_if_needed(
-      keychain_name: "github_action_keychain",
-      keychain_password: "password",
+    create_keychain(
+        name: keychain_name,
+        password: keychain_password,
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
     )
-    code_signing_manager.match_adhoc
-  # create_keychain(
-  #       name: "github_action_keychain",
-  #       password: "password",
-  #       default_keychain: true,
-  #       unlock: true,
-  #       timeout: 3600,
-  #       lock_when_sleeps: false
-  #   )
 
-  #   match(
-  #       type: "adhoc",
-  #       keychain_name: "github_action_keychain",
-  #       keychain_password: "password",
-  #       readonly: true
-  #   )
+    match(
+        type: "adhoc",
+        keychain_name: keychain_name,
+        keychain_password: keychain_password,
+        readonly: true
+    )
   end
 
   desc "Sync AppStore match signing on CI"
   lane :syncAppStoreSigningCI do
-    code_signing_manager.create_keychain_if_needed(
-      keychain_name: "github_action_keychain",
-      keychain_password: "password",
+    create_keychain(
+        name: keychain_name,
+        password: keychain_password,
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
     )
-    code_signing_manager.match_appstore
-  # create_keychain(
-  #       name: "github_action_keychain",
-  #       password: "password",
-  #       default_keychain: true,
-  #       unlock: true,
-  #       timeout: 3600,
-  #       lock_when_sleeps: false
-  #   )
 
-  #   match(
-  #       type: "appstore",
-  #       keychain_name: "github_action_keychain",
-  #       keychain_password: "password",
-  #       readonly: true
-  #   )
+    match(
+        type: "appstore",
+        keychain_name: keychain_name,
+        keychain_password: keychain_password,
+        readonly: true
+    )
   end
 
   desc "Register new devices"
