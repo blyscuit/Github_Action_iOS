@@ -26,9 +26,11 @@ jobs:
         fetch-depth: 0
 
     - name: Bundle install
-          run: |
-            bundle install
+      run: |
+        bundle install
           
     - name: Check PhraseApp
-          run: |
-            bundle exec ruby Scripts/phraseapp_check.rb
+      run: |
+        bundle exec ruby Scripts/phraseapp_check.rb
+      env:
+        PHRASEAPP_TOKEN: ${{ secrets.PHRASEAPP_TOKEN }}
