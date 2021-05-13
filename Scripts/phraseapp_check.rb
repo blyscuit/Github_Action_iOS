@@ -45,7 +45,7 @@ def sanity_check_localization
                 is_skipped = en_value.has_key?('description') ? en_value['description'].include?('skip automate check') : false
                 if !is_skipped
                     issue_desc += "Missing translation: #{en_key}\n"
-                    matched = false
+                    # matched = false
                 end
             end
         end
