@@ -1,7 +1,18 @@
+GIT
+  remote: https://github.com/phrase/phrase-ruby.git
+  revision: f01407cac42307f970638dcea4a678e98c70237a
+  specs:
+    phrase (2.0.0)
+      json (~> 2.1, >= 2.1.0)
+      link-header-parser (~> 1.0)
+      typhoeus (~> 1.0, >= 1.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
     CFPropertyList (3.0.3)
+    absolutely (4.0.0)
+      addressable (~> 2.7)
     activesupport (5.2.5)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
@@ -195,6 +206,8 @@ GEM
     jmespath (1.4.0)
     json (2.5.1)
     jwt (2.2.3)
+    link-header-parser (1.0.0)
+      absolutely (~> 4.0)
     memoist (0.16.2)
     mini_magick (4.11.0)
     mini_mime (1.1.0)
@@ -284,6 +297,7 @@ DEPENDENCIES
   cocoapods (>= 1.10.0)
   fastlane
   fastlane-plugin-firebase_app_distribution
+  phrase!
   rubocop
 
 BUNDLED WITH
