@@ -64,3 +64,4 @@ setup
 checks = sanity_check_localization
 puts sanity_check_localization[:desc]
 show_error(result: checks[:matched])
+puts "::warning file=app.js,line=1,col=5::Missing semicolon"
