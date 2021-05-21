@@ -40,13 +40,13 @@ def sanity_check_localization
             if (locale.has_key? en_key)
                 if (en_value['message'].scan(REGEX).size != locale[en_key]['message'].scan(REGEX).size)
                     issue_desc += "Incorrect regex matched: #{en_key}\n"
-                    puts "::warning ::Incorrect regex matched: #{en_key} in #{ALL_LOCALE.keys[index + 1]}\n"
+                    puts "::warning ::Incorrect regex matched: #{en_key} in #{ALL_LOCALE.keys[index + 1]}"
                 end
             else
                 is_skipped = en_value.has_key?('description') ? en_value['description'].include?('skip automate check') : false
                 if !is_skipped
                     issue_desc += "Missing translation: #{en_key}\n"
-                    puts "::warning ::Missing translation: #{en_key} in #{ALL_LOCALE.keys[index + 1]}\n"
+                    puts "::warning ::Missing translation: #{en_key} in #{ALL_LOCALE.keys[index + 1]}"
                     matched = false
                 end
             end
@@ -57,6 +57,7 @@ end
 
 def show_error(result:)
     if !result
+        puts "::error ::Keys missing translation"
         raise "Keys missing translation"
     end
 end
