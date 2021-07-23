@@ -52,14 +52,7 @@ jobs:
             
     - name: Bundle install
       # if: steps.bundleCache.outputs.cache-hit != 'true'
-      run: |
-        bundle install
-
-    - name: Match Ad-hoc
-      run: |
-        bundle exec fastlane syncAdhocSigningCI
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+      run: bundle install
 
     - name: Cache Pods
       uses: actions/cache@v2
@@ -71,12 +64,16 @@ jobs:
           ${{ runner.os }}-pods-
 
     - name: Install Pods Dependencies
-      run: |
-        bundle exec pod install
+      run: bundle exec pod install
       shell: bash
 
     - name: Build and Test
       run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
+
+    - name: Match Ad-hoc
+      run: bundle exec fastlane syncAdhocSigningCI
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distibute to Firebase
       run: bundle exec fastlane build_and_upload_staging_app
