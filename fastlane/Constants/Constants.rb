@@ -105,7 +105,7 @@ class Constants
 
   # a App Store environment scheme name
   def self.SCHEME_NAME_APP_STORE
-    'GithubActionDemo APPSTORE'
+    'GithubActionDemo AppStore'
   end
 
   # an staging product name
