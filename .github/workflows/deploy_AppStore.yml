@@ -16,15 +16,8 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-
     - name: Run SwiftLint
-      uses: norio-nomura/action-swiftlint@3.1.0
-      with:
-        args: --strict
+      - uses: ./Actions/Lint
         
   Build:
     name: Build
