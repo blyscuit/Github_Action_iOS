@@ -141,12 +141,26 @@ platform :ios do
     ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_STAGING
     ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_STAGING
     ENV['GSP_NAME'] = Constants.GSP_STAGING
+    ENV['TESTER_GROUPS'] = Constants.FIREBASE_TESTER_GROUPS
 
     set_app_version
     bump_build
     
     builder.build_app_ad_hoc(Constants.SCHEME_NAME_STAGING, Constants.PRODUCT_NAME_STAGING)
+    upload_build_to_firebase
+    upload_build_dsym_to_firebase
+  end
 
+  desc 'Build and upload Production app to firebase'
+  lane :build_and_upload_production_app do
+    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
+    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_PRODUCTION
+    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
+    ENV['TESTER_GROUPS'] = Constants.FIREBASE_TESTER_GROUPS
+
+    set_app_version
+    bump_build
+    builder.build_app_ad_hoc(Constants.SCHEME_NAME_PRODUCTION, Constants.PRODUCT_NAME_PRODUCTION)
     upload_build_to_firebase
     upload_build_dsym_to_firebase
   end

@@ -8,7 +8,7 @@ name: deploy_Release_Firebase
 on:
 
   push:
-    branches: [ release ]
+    branches: [ release/** ]
 
 jobs:
 
@@ -67,11 +67,11 @@ jobs:
       run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdhocSigningCI
+      run: bundle exec fastlane syncAdhocProductionSigningCI
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build App and Distibute to Firebase
-      run: bundle exec fastlane build_and_upload_staging_app
+    - name: Build Production App and Distibute to Firebase
+      run: bundle exec fastlane build_and_upload_production_app
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
