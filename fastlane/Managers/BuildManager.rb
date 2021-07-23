@@ -21,10 +21,15 @@ class BuildManager
     @product_name_production = product_name_production
   end
 
-  def build_app_ad_hoc(scheme, product_name)
+  def build_app_ad_hoc(scheme, product_name, bundle_identifier)
     @fastlane.gym(
       scheme: scheme,
       export_method: 'ad-hoc',
+      export_options: {
+        provisioningProfiles: {
+          @bundle_identifier_staging.to_s => "match AdHoc #{@bundle_identifier}"
+        }
+      },
       include_bitcode: false,
       output_name: product_name,
       disable_xcpretty: true

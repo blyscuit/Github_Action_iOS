@@ -147,7 +147,11 @@ platform :ios do
     set_app_version
     bump_build
     
-    builder.build_app_ad_hoc(Constants.SCHEME_NAME_STAGING, Constants.PRODUCT_NAME_STAGING)
+    builder.build_app_ad_hoc(
+      Constants.SCHEME_NAME_STAGING, 
+      Constants.PRODUCT_NAME_STAGING,
+      Constants.BUNDLE_ID_STAGING
+    )
     upload_build_to_firebase
     upload_build_dsym_to_firebase
   end
@@ -161,7 +165,11 @@ platform :ios do
 
     set_app_version
     bump_build
-    builder.build_app_ad_hoc(Constants.SCHEME_NAME_PRODUCTION, Constants.PRODUCT_NAME_PRODUCTION)
+    builder.build_app_ad_hoc(
+      Constants.SCHEME_NAME_PRODUCTION, 
+      Constants.PRODUCT_NAME_PRODUCTION, 
+      Constants.BUNDLE_ID_PRODUCTION
+    )
     upload_build_to_firebase
     upload_build_dsym_to_firebase
   end
