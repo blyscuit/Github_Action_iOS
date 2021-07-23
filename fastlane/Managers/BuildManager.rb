@@ -5,6 +5,7 @@ class BuildManager
     fastlane:,
     scheme_name_staging:,
     scheme_name_production:,
+    scheme_name_appstore:,
     bundle_identifier_staging:,
     product_name_staging:,
     product_name_staging_test_flight:,
@@ -13,6 +14,7 @@ class BuildManager
     @fastlane = fastlane
     @scheme_name_staging = scheme_name_staging
     @scheme_name_production = scheme_name_production
+    @scheme_name_appstore = scheme_name_appstore
     @bundle_identifier_staging = bundle_identifier_staging
     @product_name_staging = product_name_staging
     @product_name_staging_test_flight = product_name_staging_test_flight
@@ -54,7 +56,7 @@ class BuildManager
 
   def build_appstore
     @fastlane.gym(
-      scheme: @scheme_name_production,
+      scheme: @scheme_name_appstore,
       export_method: 'app-store',
       export_options: {
         provisioningProfiles: {

@@ -25,6 +25,7 @@ builder = BuildManager.new(
   fastlane: self,
   scheme_name_staging: Constants.SCHEME_NAME_STAGING,
   scheme_name_production: Constants.SCHEME_NAME_PRODUCTION,
+  scheme_name_appstore: Constants.SCHEME_NAME_APP_STORE,
   bundle_identifier_staging: Constants.BUNDLE_ID_STAGING,
   product_name_staging: Constants.PRODUCT_NAME_STAGING,
   product_name_staging_test_flight: Constants.PRODUCT_NAME_STAGING_TEST_FLIGHT,
