@@ -153,6 +153,8 @@ platform :ios do
 
   desc 'Build and upload Production app to appstore'
   lane :build_and_upload_appstore_app do
+    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
+    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
     set_app_version
     bump_build
     builder.build_appstore
@@ -160,6 +162,7 @@ platform :ios do
       set_connect_api_key
     end
     upload_build_to_appstore
+    upload_build_dsym_to_firebase
   end
 
   desc 'upload develop build to AppStore'

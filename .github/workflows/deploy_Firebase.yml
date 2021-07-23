@@ -20,8 +20,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+
     - name: Run SwiftLint
-      uses: ./Actions/Lint
+      uses: norio-nomura/action-swiftlint@3.1.0
+      with:
+        args: --strict
         
   Build:
     name: Build

@@ -75,6 +75,11 @@ class Constants
     '1:728561715309:ios:f3a3222ffd652d602fd764'
   end
 
+  # a firebase app ID for Production
+  def self.FIREBASE_APP_ID_PRODUCTION
+    '1:728561715309:ios:f3a3222ffd652d602fd764'
+  end
+
   def self.FIREBASE_TESTER_GROUPS
     "CICD"
   end
