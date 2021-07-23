@@ -27,7 +27,7 @@ class BuildManager
       export_method: 'ad-hoc',
       export_options: {
         provisioningProfiles: {
-          "match AdHoc #{bundle_identifier}"
+          @bundle_identifier.to_s => "match AdHoc #{bundle_identifier}"
         }
       },
       include_bitcode: false,
