@@ -71,7 +71,7 @@ platform :ios do
     set_app_version
     bump_build
     
-    builder.build_app_ad_hoc(
+    builder.build_ad_hoc(
       Constants.SCHEME_NAME_STAGING,
       Constants.PRODUCT_NAME_STAGING,
       Constants.BUNDLE_ID_STAGING
@@ -91,7 +91,7 @@ platform :ios do
   lane :build_and_upload_production_app do
     set_app_version
     bump_build
-    builder.build_app_ad_hoc(
+    builder.build_ad_hoc(
       Constants.SCHEME_NAME_PRODUCTION,
       Constants.PRODUCT_NAME_PRODUCTION,
       Constants.BUNDLE_ID_PRODUCTION
@@ -141,7 +141,7 @@ platform :ios do
   lane :build_and_upload_appstore_app do
     set_app_version
     bump_build
-    builder.build_appstore(
+    builder.build_app_store(
       Constants.SCHEME_NAME_PRODUCTION,
       Constants.PRODUCT_NAME_PRODUCTION,
       Constants.BUNDLE_ID_PRODUCTION,

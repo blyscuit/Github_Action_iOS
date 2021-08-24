@@ -5,7 +5,7 @@ class BuildManager
     @fastlane = fastlane
   end
 
-  def build_app_ad_hoc(scheme, product_name, bundle_identifier)
+  def build_ad_hoc(scheme, product_name, bundle_identifier)
     @fastlane.gym(
       scheme: scheme,
       export_method: 'ad-hoc',
@@ -20,7 +20,7 @@ class BuildManager
     )
   end
 
-  def build_app_appstore(scheme, product_name, bundle_identifier, include_bitcode)
+  def build_app_store(scheme, product_name, bundle_identifier, include_bitcode)
     @fastlane.gym(
       scheme: scheme,
       export_method: 'app-store',
