@@ -83,7 +83,7 @@ platform :ios do
     )
     upload_build_dsym_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION, 
-      GSP_NAME: Constants.Constants.GSP_PRODUCTION
+      GSP_NAME: Constants.GSP_PRODUCTION
     )
   end
 
@@ -103,7 +103,7 @@ platform :ios do
     )
     upload_build_dsym_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION, 
-      GSP_NAME: Constants.Constants.GSP_PRODUCTION
+      GSP_NAME: Constants.GSP_PRODUCTION
     )
   end
 
@@ -151,7 +151,7 @@ platform :ios do
     upload_build_to_appstore
     upload_build_dsym_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION, 
-      GSP_NAME: Constants.Constants.GSP_PRODUCTION
+      GSP_NAME: Constants.GSP_PRODUCTION
     )
   end
 
