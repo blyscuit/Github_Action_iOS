@@ -62,11 +62,4 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      id: xcodetest
-      run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
-
-    - name: Check Tests Passed
-      if: steps.xcodetest.outputs.result != 0
-      run: |
-       puts "::error ::Test failed" 
-       exit 1
+      run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty && exit ${PIPESTATUS[0]}

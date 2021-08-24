@@ -150,4 +150,17 @@ class Constants
     '69a6de7f-8f98-47e3-e053-5b8c7c11a4d1'
   end
 
+  #################
+  #### KEYCHAIN ####
+  #################
+
+  # Keychain name
+  def self.KEYCHAIN_NAME
+    'github_action_keychain'
+  end
+
+  # a scheme name for unit testing
+  def self.KEYCHAIN_PASSWORD
+    'password'
+  end
 end
