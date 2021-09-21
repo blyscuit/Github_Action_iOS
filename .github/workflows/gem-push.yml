@@ -1,6 +1,8 @@
 name: Greetings
 
-on: [issues]
+on:
+  issue_comment:
+    types: [created]
 
 jobs:
   greeting:
