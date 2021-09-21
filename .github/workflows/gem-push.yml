@@ -14,5 +14,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         respondableId: ${{ github.event.issue.node_id }}
-        response: "Well Done !! Thank you @${{ github.event.pull_request.user.login }} for your contribution :)"
-        author: ${{ github.event.pull_request.user.login }}
+        response: "Well Done !! Thank you @${{ github.event.issue.user.login }} for your contribution :)"
+        author: ${{ github.event.issue.user.login }}
