@@ -1,0 +1,16 @@
+name: Greetings
+
+on: [issues]
+
+jobs:
+  greeting:
+    if: contains(github.event.comment.body, '/noti')
+    runs-on: ubuntu-latest
+    steps:
+    - uses: derekprior/add-autoresponse@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        respondableId: ${{ github.event.pull_request.node_id }}
+        response: "Well Done !! Thank you @${{ github.event.pull_request.user.login }} for your contribution :)"
+        author: ${{ github.event.pull_request.user.login }}
